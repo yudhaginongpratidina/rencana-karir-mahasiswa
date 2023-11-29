@@ -43,7 +43,7 @@ const Navbar = () => {
           <button 
             onClick={toggleMenu} 
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-lg md:hidden focus:outline-none focus:ring-2 focus:ring-gray-200"
             aria-controls="navbar-cta"
             aria-expanded={isMenuOpen}
           >
@@ -54,10 +54,10 @@ const Navbar = () => {
           </button>
         </div>
         <div className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${isMenuOpen ? 'block' : 'hidden'}`} id="navbar-cta">
-          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
+          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
             {url.map((item, index) => (
               <li key={index}>
-                <Link to={item.url} className="block py-2 px-3 md:p-0  md:bg-transparent text-white" aria-current="page" onClick={closeMenu}>
+                <Link to={item.url} className="block py-2 px-3 md:p-0 hover:text-slate-200 md:bg-transparent text-white" aria-current="page" onClick={closeMenu}>
                   {item.name}
                 </Link>
               </li>
