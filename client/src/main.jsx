@@ -30,7 +30,7 @@ const routes = [
     element: <Register />,
   },
   {
-    path: '*',
+    path: '/*',
     element: <Error404 />,
   }
 ]
