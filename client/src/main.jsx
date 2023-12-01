@@ -9,6 +9,7 @@ import './assets/index.css'
 // IMPORT PAGE
 import Home from './pages/Home'
 import Login from './pages/Login'
+import Register from './pages/Register'
 
 // IMPORT ERROR PAGE
 import Error404 from './pages/Error404'
@@ -23,6 +24,10 @@ const routes = [
   {
     path: '/login',
     element: <Login />,
+  },
+  {
+    path: '/register',
+    element: <Register />,
   },
   {
     path: '*',
