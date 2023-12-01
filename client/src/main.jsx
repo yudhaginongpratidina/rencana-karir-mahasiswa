@@ -8,7 +8,7 @@ import './assets/index.css'
 
 // IMPORT PAGE
 import Home from './pages/Home'
-
+import Login from './pages/Login'
 
 // IMPORT ERROR PAGE
 import Error404 from './pages/Error404'
@@ -19,6 +19,10 @@ const routes = [
   {
     path: '/',
     element: <Home />,
+  },
+  {
+    path: '/login',
+    element: <Login />,
   },
   {
     path: '*',
