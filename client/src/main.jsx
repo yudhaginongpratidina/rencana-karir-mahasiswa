@@ -22,6 +22,10 @@ const routes = [
     element: <Home />,
   },
   {
+    path: '/Career',
+    element: <Home />,
+  },
+  {
     path: '/login',
     element: <Login />,
   },
