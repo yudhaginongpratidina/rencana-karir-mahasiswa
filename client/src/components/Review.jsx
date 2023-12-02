@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import bgJumbotron from '../assets/images/bg-jumbotron.jpg'
 
 const Content = [
   {
     id: 1,
     url: "/",
+    image : "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/joseph-mcfall.png",
   },
   {
     id: 1,
     url: "/",
+    image : "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/joseph-mcfall.png",
   },
 ];
 
@@ -37,7 +38,7 @@ const Review = () => {
                 <div key={index} className={`duration-700 ease-in-out ${ activeIndex === index ? 'block' : 'hidden'}`} data-carousel-item>
                     <article className='w-full max-w-3xl mx-auto text-center'>
                         <div className="flex flex-col items-center mb-4 mt-3 justify-center">
-                            <img className="w-14 h-14 me-4 rounded-full" src={bgJumbotron} alt=""/>
+                            <img className="w-14 h-14 me-4 rounded-full" src={item.image} alt=""/>
                             <div className="font-medium">
                                 <p className='text-white'>Jese Leos</p>
                             </div>

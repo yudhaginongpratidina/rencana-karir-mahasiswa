@@ -7,63 +7,63 @@ const Content = [
   {
     id : 1,
     url : "/",
-    // image : "https://flowbite.com/docs/images/blog/image-1.jpg",
+    image : "https://flowbite.com/docs/images/blog/image-1.jpg",
     title : "Tips membuat CV yang baik",
     description : "Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.",
   },
   {
     id : 2,
     url : "/",
-    // image : "https://flowbite.com/docs/images/blog/image-1.jpg",
+    image : "https://flowbite.com/docs/images/blog/image-1.jpg",
     title : "Persiapan apa saja yang harus dilakukan sebelum interview",
     description : "Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.",
   },
   {
     id : 3,
     url : "/",
-    // image : "https://flowbite.com/docs/images/blog/image-1.jpg",
+    image : "https://flowbite.com/docs/images/blog/image-1.jpg",
     title : "Tips menjawab pertanyaan interview kerja",
     description : "Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.",
   },
   {
     id : 4,
     url : "/",
-    // image : "https://flowbite.com/docs/images/blog/image-1.jpg",
+    image : "https://flowbite.com/docs/images/blog/image-1.jpg",
     title : "Noteworthy technology acquisitions 2021",
     description : "Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.",
   },
   {
     id : 5,
     url : "/",
-    // image : "https://flowbite.com/docs/images/blog/image-1.jpg",
+    image : "https://flowbite.com/docs/images/blog/image-1.jpg",
     title : "Noteworthy technology acquisitions 2021",
     description : "Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.",
   },
   {
     id : 6,
     url : "/",
-    // image : "https://flowbite.com/docs/images/blog/image-1.jpg",
+    image : "https://flowbite.com/docs/images/blog/image-1.jpg",
     title : "Noteworthy technology acquisitions 2021",
     description : "Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.",
   },
   {
     id : 7,
     url : "/",
-    // image : "https://flowbite.com/docs/images/blog/image-1.jpg",
+    image : "https://flowbite.com/docs/images/blog/image-1.jpg",
     title : "Noteworthy technology acquisitions 2021",
     description : "Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.",
   },
   {
     id : 8,
     url : "/",
-    // image : "https://flowbite.com/docs/images/blog/image-1.jpg",
+    image : "https://flowbite.com/docs/images/blog/image-1.jpg",
     title : "Noteworthy technology acquisitions 2021",
     description : "Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.",
   },
   {
     id : 9,
     url : "/",
-    // image : "https://flowbite.com/docs/images/blog/image-1.jpg",
+    image : "https://flowbite.com/docs/images/blog/image-1.jpg",
     title : "Noteworthy technology acquisitions 2021",
     description : "Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.",
   },
@@ -85,7 +85,7 @@ const ArticleLIst = () => {
           <CardArticle 
             key={index} 
             url={item.url}
-            // image={item.image}
+            image={item.image}
             title={item.title}
             description={item.description}
           />
@@ -107,12 +107,12 @@ const ArticleLIst = () => {
 
 const CardArticle = (props) => {
 
-  const {url, title, description} = props
+  const {url, image, title, description} = props
 
   return (
     <div className="w-full bg-white border border-gray-200 rounded-lg shadow mx-auto">
         <Link to={url}>
-            <img className="rounded-t-lg" src={bgJumbotron} alt="" />
+            <img className="rounded-t-lg" src={image} alt="" />
         </Link>
         <div className="p-5">
             <Link to={url}>
