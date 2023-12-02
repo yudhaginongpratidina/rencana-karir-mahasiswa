@@ -15,19 +15,19 @@ const Navbar = () => {
   const url = [
     {
       name: "Home",
-      url: "/Home",
+      url: "/home",
     },
     {
       name: "Article",
-      url: "/Article",
+      url: "/article",
     },
     {
       name: "Career",
-      url: "/Career",
+      url: "/career",
     },
     {
       name: "Contact Us",
-      url: "/ContactUs",
+      url: "/contact",
     }
   ];
 
