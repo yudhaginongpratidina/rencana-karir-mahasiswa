@@ -48,8 +48,8 @@ const Tim = () => {
             />
             <CardTim
                 jobdesk="Resource Management | PPT Maker | Report Preparer"
-                name="Tim 1"
-                nim="2110441xxxx"
+                name="Intan Aisyah Wulandari"
+                nim="21104410018"
                 image="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/joseph-mcfall.png"
                 description="
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit laboriosam repudiandae aliquid.
