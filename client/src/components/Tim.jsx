@@ -10,7 +10,7 @@ const Tim = () => {
                 jobdesk="Lead and Fullstcak Developer"
                 name="Tim 1"
                 nim="2110441xxxx"
-                image="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/joseph-mcfall.png"
+                image="/"
                 description="
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit laboriosam repudiandae aliquid.
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit laboriosam repudiandae aliquid.
@@ -20,7 +20,7 @@ const Tim = () => {
                 jobdesk="Front End Developer"
                 name="Tim 1"
                 nim="2110441xxxx"
-                image="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/joseph-mcfall.png"
+                image="/"
                 description="
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit laboriosam repudiandae aliquid.
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit laboriosam repudiandae aliquid.
@@ -30,7 +30,7 @@ const Tim = () => {
                 jobdesk="Front End Developer"
                 name="Tim 1"
                 nim="2110441xxxx"
-                image="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/joseph-mcfall.png"
+                image="/"
                 description="
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit laboriosam repudiandae aliquid.
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit laboriosam repudiandae aliquid.
@@ -40,7 +40,7 @@ const Tim = () => {
                 jobdesk="Penyusun Laporan"
                 name="Tim 1"
                 nim="2110441xxxx"
-                image="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/joseph-mcfall.png"
+                image="/"
                 description="
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit laboriosam repudiandae aliquid.
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit laboriosam repudiandae aliquid.
@@ -50,7 +50,7 @@ const Tim = () => {
                 jobdesk="Penyusun PPT"
                 name="Tim 1"
                 nim="2110441xxxx"
-                image="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/joseph-mcfall.png"
+                image="/"
                 description="
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit laboriosam repudiandae aliquid.
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit laboriosam repudiandae aliquid.
@@ -70,7 +70,7 @@ const CardTim = (props) => {
         name = 'your name', 
         nim = 'your nim',
         jobdesk = 'your job desk', 
-        image = 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/joseph-mcfall.png'
+        image = ''
     } = props
     return (
         <figure className="flex flex-col items-center justify-center p-8 text-center bg-white shadow">
