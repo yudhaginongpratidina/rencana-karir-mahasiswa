@@ -8,8 +8,8 @@ const Tim = () => {
         <div className="grid gap-2 mb-8 rounded-lg md:mb-12 py-3 px-2 md:grid-cols-2 xl:grid-cols-3 bg-white">
             <CardTim
                 jobdesk="Lead and Fullstcak Developer"
-                name="Tim 1"
-                nim="2110441xxxx"
+                name="Yudha Ginong Pratidina"
+                nim="21104410001"
                 image="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/joseph-mcfall.png"
                 description="
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit laboriosam repudiandae aliquid.
@@ -17,9 +17,9 @@ const Tim = () => {
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit laboriosam repudiandae aliquid."
             />
             <CardTim
-                jobdesk="Front End Developer"
-                name="Tim 1"
-                nim="2110441xxxx"
+                jobdesk="Front End Developer | Support"
+                name="Hilga Satria Pambudi"
+                nim="21104410009"
                 image="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/joseph-mcfall.png"
                 description="
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit laboriosam repudiandae aliquid.
@@ -27,9 +27,9 @@ const Tim = () => {
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit laboriosam repudiandae aliquid."
             />
             <CardTim
-                jobdesk="Front End Developer"
-                name="Tim 1"
-                nim="2110441xxxx"
+                jobdesk="Support | Resource Management"
+                name="Nugroho Nurwanda Zakaria"
+                nim="21104410031"
                 image="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/joseph-mcfall.png"
                 description="
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit laboriosam repudiandae aliquid.
@@ -37,9 +37,9 @@ const Tim = () => {
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit laboriosam repudiandae aliquid."
             />
             <CardTim
-                jobdesk="Penyusun Laporan"
-                name="Tim 1"
-                nim="2110441xxxx"
+                jobdesk="Support | Report Preparer"
+                name="Bayu Samudra"
+                nim="21104410034"
                 image="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/joseph-mcfall.png"
                 description="
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit laboriosam repudiandae aliquid.
@@ -47,7 +47,7 @@ const Tim = () => {
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit laboriosam repudiandae aliquid."
             />
             <CardTim
-                jobdesk="Penyusun PPT"
+                jobdesk="Resource Management | PPT Maker | Report Preparer"
                 name="Tim 1"
                 nim="2110441xxxx"
                 image="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/joseph-mcfall.png"
