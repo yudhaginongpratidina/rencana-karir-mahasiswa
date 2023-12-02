@@ -15,7 +15,7 @@ const Navbar = () => {
   const url = [
     {
       name: "Home",
-      url: "/",
+      url: "/Home",
     },
     {
       name: "Article",
