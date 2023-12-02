@@ -31,14 +31,14 @@ const Review = () => {
 
 
             {/* ITEM */}
-            <div className="relative h-80 px-5 overflow-hidden md:h-96 flex justify-center items-center bg-red-500">
+            <div className="relative h-80 px-5 py-6 overflow-hidden md:h-96 flex justify-center items-center bg-red-500">
                 {Content.map((item, index) => (
                 <div key={index} className={`duration-700 ease-in-out ${ activeIndex === index ? 'block' : 'hidden'}`} data-carousel-item>
                     <article className='w-full max-w-3xl mx-auto text-center'>
                         <div className="flex flex-col items-center mb-4 mt-3 justify-center">
                             <img className="w-14 h-14 me-4 rounded-full" src={item.url} alt=""/>
                             <div className="font-medium">
-                                <p className='text-white'>Jese Leos <time className="block text-sm text-white">Joined on August 2014</time></p>
+                                <p className='text-white'>Jese Leos</p>
                             </div>
                         </div>
                         <div className="flex items-center mb-4 space-x-1 rtl:space-x-reverse justify-center">
