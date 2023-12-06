@@ -4,11 +4,7 @@ import { Link } from "react-router-dom";
 const SidebarAdmin = () => {
   return (
     <div>
-      <aside
-        id="sidebar"
-        className="fixed top-0 left-0 z-20 flex flex-col flex-shrink-0 hidden w-64 h-full pt-16 font-normal duration-75 lg:flex transition-width bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700"
-        aria-label="Sidebar"
-      >
+      <aside id="sidebar" className="fixed top-0 left-0 z-20 flex flex-col flex-shrink-0 hidden w-64 h-full pt-16 font-normal duration-75 lg:flex transition-width bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
         <div className="relative flex flex-col flex-1 min-h-0 pt-0">
           <div className="flex flex-col flex-1 pt-5 pb-4 overflow-y-auto">
             <div className="flex-1 px-3 space-y-1 divide-y divide-gray-200 dark:divide-gray-700">
@@ -111,16 +107,8 @@ const SidebarAdmin = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    to="/administrator/kriteria"
-                    className="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="w-6 h-6"
-                    >
+                  <Link to="/administrator/kriteria" className="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                       <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32l8.4-8.4z" />
                       <path d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z" />
                     </svg>
@@ -133,10 +121,7 @@ const SidebarAdmin = () => {
           </div>
         </div>
       </aside>
-      <div
-        className="fixed inset-0 z-10 hidden bg-gray-900/50 dark:bg-gray-900/90"
-        id="sidebarBackdrop"
-      />
+      <div className="fixed inset-0 z-10 hidden bg-gray-900/50 dark:bg-gray-900/90"id="sidebarBackdrop"/>
     </div>
   );
 };

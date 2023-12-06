@@ -54,12 +54,7 @@ const Profile = () => {
 
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                  <label
-                    htmlFor="fullName"
-                    className="block text-sm font-medium text-gray-600"
-                  >
-                    Full Name
-                  </label>
+                  <label htmlFor="fullName" className="block text-sm font-medium text-gray-600" > Full Name </label>
                   <input
                     type="text"
                     id="fullName"
