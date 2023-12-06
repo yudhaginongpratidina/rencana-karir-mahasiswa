@@ -13,6 +13,20 @@ const Navbar = () => {
                 logo="https://flowbite.com/docs/images/logo.svg" 
                 name="ADMIN REKAM" 
             />
+
+
+            <div className="flex items-center justify-around gap-x-3">
+                <Link to="/admin/dashboard"> Dashboard </Link>
+                <Link to="/admin/message"> Message </Link>
+
+
+                <Link to="#"> Bidang Karir </Link>
+                <Link to="#"> Jobs </Link>
+                <Link to="#"> Skill </Link>
+
+                <Link to="/admin/kriteria"> Aksi </Link>
+            </div>
+
             <Profile
                 profile="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
                 name="Admin"
@@ -48,7 +62,7 @@ const Profile = (props) => {
     const {profile, name, email} = props;
 
     return (
-        <div className="flex items-center ml-3">
+        <div className="flex items-center">
             <div className="relative inline-block text-left">
                 <button type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300" onClick={toggleProfile}>
                     <span className="sr-only">Open user menu</span>

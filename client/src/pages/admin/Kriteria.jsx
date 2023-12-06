@@ -7,7 +7,6 @@ const Kriteria = () => {
     jobs: "",
     keahlian: "",
     pengalaman: "",
-    textareaKriteria: "",
   });
 
   const handleChange = (e) => {
@@ -137,22 +136,7 @@ const Kriteria = () => {
                           </select>
                         </div>
 
-                        <div className="mb-4">
-                          <label
-                            htmlFor="textareaKriteria"
-                            className="block text-sm font-medium text-gray-600"
-                          >
-                            Kriteria
-                          </label>
-                          <textarea
-                            id="textareaKriteria"
-                            name="textareaKriteria"
-                            value={formData.textareaKriteria}
-                            onChange={handleChange}
-                            className="mt-1 p-2 w-full border rounded-md"
-                            rows="4"
-                          ></textarea>
-                        </div>
+                        
 
                         <button
                           type="submit"
