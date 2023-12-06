@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <div>
-      <nav className="fixed z-30 w-full bg-red-500 border-b border-gray-200 ${isSidebarOpen ? 'lg:ml-0' : 'lg:ml-64'}`}">
+      <nav className=" w-full bg-red-500 border-b border-gray-200 ${isSidebarOpen ? 'lg:ml-0' : 'lg:ml-64'}`}">
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
 

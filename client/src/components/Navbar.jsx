@@ -18,10 +18,6 @@ const Navbar = () => {
       url: "/home",
     },
     {
-      name: "Article",
-      url: "/article",
-    },
-    {
       name: "Career",
       url: "/career",
     },

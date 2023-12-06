@@ -1,14 +1,15 @@
 import React from 'react'
 import Navbar from '../../components/admin/Navbar'
-import MessageList from '../../components/admin/MessageList'
+import KaarirList from '../../components/admin/KaarirList'
 
-const Message = () => {
+
+const Karir = () => {
   return (
     <div>
         <Navbar />
-        <MessageList/>
+        <KaarirList />
     </div>
   )
 }
 
-export default Message
+export default Karir

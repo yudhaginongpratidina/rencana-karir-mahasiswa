@@ -1,7 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-const Content = () => {
+const PanelDashboard = () => {
   return (
     <div className="px-4 pt-6">
       <div className="grid grid-cols-1 my-4 xl:grid-cols-2 xl:gap-4">
@@ -218,18 +217,8 @@ const Content = () => {
             </article>
           </form>
         </div>
-        {/* Right Content */}
+        {/* Right PanelDashboard */}
         <div className="grid gap-4">
-          <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
-            <div className="items-center justify-between pb-4 border-b border-gray-200 sm:flex dark:border-gray-700">
-              <div className="w-full mb-4 sm:mb-0">
-                <span className="text-2xl font-bold leading-none text-gray-900 sm:text-3xl dark:text-white">
-                  Total Pengunjung
-                </span>
-              </div>
-            </div>
-            <div className="w-full" id="sales-by-category" />
-          </div>
           <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
             <div className="flex items-center justify-between pb-4 mb-4 border-b border-gray-200 dark:border-gray-700">
               <div>
@@ -457,4 +446,4 @@ const Content = () => {
   );
 };
 
-export default Content;
+export default PanelDashboard;
