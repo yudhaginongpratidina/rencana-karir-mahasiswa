@@ -1,10 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 import Auth from '../components/template/Auth'
 import Input from '../components/elements/Input'
 
 const Login = () => {
+
+  // JIKA SUDAH PERNAH LOGIN, DAN BELUM LOG OUT, ATAU DATA LOGIN
+  // SEBELUMNYA MASIH ADA, MAKA REDIRECT KE HALAMAN ADMIN
+  useEffect(() => {
+    const localStorageKey = 'Credentials'
+    const credentials = JSON.parse(localStorage.getItem(localStorageKey))
+    if (credentials) {
+      navigate('/admin/dashboard')
+    }
+  })
 
   const navigate = useNavigate();
 
@@ -18,22 +29,34 @@ const Login = () => {
     setSuccess('');
   };
 
-  const Login = (e) => {
+  const Login =  async (e) => {
     try {
       e.preventDefault();
       resetMessages();
 
-      if (!email || !password) {
-        return setError("All fields are required");
-      }
+      const response = await axios.post("http://localhost:4000/api/users/login", {
+        email       : email,
+        password    : password
+      });
 
-      if (email !== "admin@admin" || password !== "kesehatan") {
-        return setError("Wrong email or password");
-      }
+      if (response) setSuccess(response.data.msg);
 
-      setSuccess("Login successful");
+      const { data } = response.data;
+
+      const userId = data.id;
+      const userEmail = data.email;
+      const userProfile = data.profile;
       
+      const localStorageKey = 'Credentials'
+      localStorage.setItem(localStorageKey, JSON.stringify({ 
+        id : userId,
+        email : userEmail,
+        profile : userProfile
+       }))
+
+       setTimeout(() => { navigate('/admin/dashboard'); }, 1000);
     } catch (error) {
+      setError(error.response.data.msg);
     }
   }
 
