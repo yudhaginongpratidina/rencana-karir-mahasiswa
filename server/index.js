@@ -25,9 +25,13 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 
 // ROUTES
+const UserRoute = require('./routers/UserRoute')
+
+app.use(UserRoute)
+
 app.get('/*', (req, res) => res.status(404).json({ message: 'Not Found' }));
 
 
 
 // SERVER LISTEN
-app.listen(process.env.PORT, () =>  console.log(`Server listening on http://localhost:${process.env.PORT}`))
+app.listen(process.env.PORT, () =>  console.log(`Server listening on ${process.env.PORT}`))

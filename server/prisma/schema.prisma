@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,59 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-  id          Int       @id   @default(autoincrement())
-  name        String
-  email       String
-  password    String
-  profile     String    @db.Text
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @default(now())
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  password  String
+  profile   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 }
-
-
-model BidangKarir {
-  id          Int       @id   @default(autoincrement())
-  name        String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @default(now())
-}
-
-model Jobs {
-  id          Int       @id   @default(autoincrement())
-  name        String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @default(now())
-}
-
-model Skill {
-  id          Int       @id   @default(autoincrement())
-  name        String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @default(now())
-}
-
-
-model Rule {
-  id            Int       @id   @default(autoincrement())
-
-  idJobs        Int
-  idBidangKarir Int
-  idSkill       Int
-
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now())
-}
-
-
-model Message {
-  id          Int       @id   @default(autoincrement())
-  email       String
-  subject     String
-  message     String    @db.Text
-
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @default(now())
-}
-
