@@ -15,11 +15,13 @@ import Register from "./pages/Register";
 
 
 // IMPORT ADMINISTRATOR
-import Dashboard from "./pages/admin/Dashboard";
-import Profile from "./pages/admin/Profile";
-import Message from "./pages/admin/Message";
-import Karir from "./pages/admin/Karir";
-import Kriteria from "./pages/admin/Kriteria";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminProfile from "./pages/AdminProfile";
+
+// import Profile from "./pages/admin/Profile";
+// import Message from "./pages/admin/Message";
+// import Karir from "./pages/admin/Karir";
+// import Kriteria from "./pages/admin/Kriteria";
 
 
 
@@ -39,11 +41,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<Error404 />} />
 
-        <Route path="/admin/dashboard" element={<Dashboard />} />
-        <Route path="/admin/profile" element={<Profile />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/profile" element={<AdminProfile />} />
+
+        {/* <Route path="/admin/profile" element={<Profile />} />
         <Route path="/admin/message" element={<Message />} />
         <Route path="/admin/karir" element={<Karir />} />
-        <Route path="/admin/kriteria" element={<Kriteria />} />
+        <Route path="/admin/kriteria" element={<Kriteria />} /> */}
 
       </Routes>
     </BrowserRouter>
