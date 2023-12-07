@@ -95,10 +95,28 @@ const deleteUser = async (req, res) => {
     }
 }
 
+const login = async (req, res) => {
+    try {
+        const {email, password} = req.body;
+
+        const response = await prisma.user.findFirst({ where: { email: email }});
+        if (!response) return res.status(404).json({msg: "User not found"});
+
+        const isMatch = await bcrypt.compare(password, response.password);
+        if (!isMatch) return res.status(400).json({msg: "Wrong password"});
+
+        return res.status(200).json({msg: "Login successful", data: response});
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ msg: error.message });
+    }
+}
+
 module.exports = {
     getUsers,
     getUserById,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    login
 }
