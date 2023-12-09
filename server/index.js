@@ -26,8 +26,10 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // ROUTES
 const UserRoute = require('./routers/UserRoute')
+const MessageRoute = require('./routers/MessageRoute')
 
 app.use(UserRoute)
+app.use(MessageRoute)
 
 app.get('/*', (req, res) => res.status(404).json({ message: 'Not Found' }));
 
