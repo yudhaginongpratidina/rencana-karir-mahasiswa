@@ -74,7 +74,7 @@ const Career = () => {
 
 
               <div className="mb-6">
-                <label htmlFor="question4" class="block mb-2 text-sm font-medium text-gray-900">Apakah anda suka bekerja secara mandiri atau bekerja bersama tim ?</label>
+                <label htmlFor="question4" className="block mb-2 text-sm font-medium text-gray-900">Apakah anda suka bekerja secara mandiri atau bekerja bersama tim ?</label>
                 <select 
                   id="question4"
                   value={question4}
@@ -90,7 +90,7 @@ const Career = () => {
 
 
               <div className="mb-6">
-                <label htmlFor="question5" class="block mb-2 text-sm font-medium text-gray-900">Apakah anda suka bekerja dirumah atau dikantor ?</label>
+                <label htmlFor="question5" className="block mb-2 text-sm font-medium text-gray-900">Apakah anda suka bekerja dirumah atau dikantor ?</label>
                 <select 
                   id="question5"
                   value={question5}

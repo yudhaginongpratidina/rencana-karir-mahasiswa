@@ -4,19 +4,19 @@ import { Link } from "react-router-dom";
 const AdminFooter = () => {
   const url = [
     {
-      name: "Home",
+      name: "Dashboard",
       url: "#",
     },
     {
-      name: "Article",
+      name: "Data",
       url: "#",
     },
     {
-      name: "Career",
+      name: "Message",
       url: "#",
     },
     {
-      name: "Contact",
+      name: "Riwayat",
       url: "#",
     },
   ];
@@ -42,7 +42,7 @@ export default AdminFooter;
 const Template = (props) => {
   const { children } = props;
   return (
-    <footer className="bg-red-500 py-3 shadow">
+    <footer className="bg-red-500 py-3 shadow mt-4">
       <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
         {children}
       </div>
@@ -56,7 +56,7 @@ const Copyright = (props) => {
   return (
     <span className="text-sm text-white sm:text-center">
       © {year}{" "}
-      <Link to={"/"} className="hover:underline">
+      <Link to={"/admin/dashboard"} className="hover:underline">
         {title}
       </Link>{" "}
       | All Rights Reserved.
