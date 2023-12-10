@@ -1,16 +1,93 @@
-import React, { useState } from 'react'
+// IMPORT LIBRARY
+import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
+import useSWR, {useSWRConfig} from "swr";
+import axios from 'axios'
+import { formatDistanceToNow, parseISO, set } from 'date-fns';
+import { id } from 'date-fns/locale';
+
+
+// IMPORT TEMPLATE, ELEMENTS, COMPONENTS
 import Admin from '../components/template/Admin'
+import PanelContainer from '../components/PanelContainer';
+import PanelItem from '../components/PanelItem';
+import Button from '../components/elements/Button'
+import AlertMessage from '../components/elements/AlertMessage'
+
 
 const AdminDashboard = () => {
+
+  const { mutate } = useSWRConfig();
+  const [success, setSuccess] = useState('')
+  const [error, setError] = useState('')
+
+  const resetMessage = () => {
+    setSuccess('')
+    setError('')
+  }
+
+  const getMessage = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/api/messages')
+      return response.data.data
+    } 
+    catch (error) {
+      console.log(error)
+    }
+  }
+
+  
+  // PARSING DATA
+  const { data } = useSWR('messages', getMessage)
+  
+  const deleteMessage = async (id) => {
+    try {
+      const response = await axios.delete(`http://localhost:4000/api/messages/${id}`)
+      if (response) {
+        resetMessage();
+        setSuccess(response.data.msg)
+        mutate('messages')
+      }
+    } 
+    catch (error) {
+      resetMessage();
+      setError(error.response.data.msg)
+    }
+  }
+
   return (
     <Admin>
       <div className='px-4 pt-6'>
+        
+        {error && <AlertMessage type="error" message={error} color="red" />}
+        {success && <AlertMessage type="success" message={success} color="green" />}
+
         <div className='grid grid-cols-1 my-4 xl:grid-cols-2 xl:gap-4'>
-          <LeftPanel/>
+          <LeftPanel>
+              {data?.slice(0, 5).map((message, index) => (
+                <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{index + 1}</th>
+                  <td className="px-6 py-4 text-left"> {formatDistanceToNow(parseISO(message.createdAt), { addSuffix: true, locale: id })} </td>
+                  <td className="px-6 py-4">{message.subject}</td>
+                  <td className="px-6 py-4 text-center flex justify-center gap-2">
+                    <Link to={`/admin/message/${message._id}`} className='py-2 px-3 bg-green-500 text-white rounded'>Detail</Link>
+                    <Button type="button" name="Delete" color="red" onClick={() => deleteMessage(message.id)} />
+                  </td>
+                </tr>
+              ))}
+          </LeftPanel>
           <RightPanel/>
         </div>
-        <ButtomPanel/>
+
+        <ButtomPanel>
+          <tr className="odd:bg-white even:bg-gray-50 border-b ">
+            <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">1</td>
+            <td className="px-6 py-4">User 1</td>
+            <td className="px-6 py-4">Programmer</td>
+            <td className="px-6 py-4">Front End Developer</td>
+            <td className="px-6 py-4">8 Desember 2023</td>
+          </tr>
+        </ButtomPanel>
       </div>
     </Admin>
   )
@@ -18,24 +95,19 @@ const AdminDashboard = () => {
 
 export default AdminDashboard
 
-const LeftPanel = () => {
+const LeftPanel = (props) => {
+  const { children } = props;
   return (
     <PanelContainer panelName="Pesan Masuk Hari Ini" panelLink="/admin/message">
-      <table className="w-full text-sm text-left rtl:text-right text-gray-500 mt-5">
+      <table className="w-full text-sm text-left rtl:text-right text-gray-500 mt-5 overflow-auto">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-          <th scope="col" className="px-6 py-3">No</th>
+          <th scope="col" className="px-6 py-3 w-3">No</th>
+          <th scope="col" className="px-6 py-3 text-left w-56">Date</th>
           <th scope="col" className="px-6 py-3">Subject</th>
           <th scope="col" className="px-6 py-3 text-center">Aksi</th>
         </thead>
         <tbody>
-          <tr className="odd:bg-white even:bg-gray-50 border-b">
-            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">1</td>
-            <td className="px-6 py-4">User 1</td>
-            <td className="px-6 py-4 flex items-center justify-center">
-              <Link to="/admin/message" className='text-white border py-2 px-4 bg-green-500 rounded'>Lihat</Link>
-              <button className='text-white border px-4 py-2 bg-red-500 rounded'>Hapus</button>
-            </td>
-          </tr>
+          {children}
         </tbody>
       </table>
     </PanelContainer>
@@ -56,7 +128,9 @@ const RightPanel = () => {
 }
 
 
-const ButtomPanel = () => {
+const ButtomPanel = (props) => {
+
+  const { children } = props;
   return (
     <PanelContainer panelName="Riwayat" panelLink="/admin/message">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 mt-5">
@@ -68,49 +142,9 @@ const ButtomPanel = () => {
           <th scope="col" className="px-6 py-3">Date</th>
         </thead>
         <tbody>
-          <tr className="odd:bg-white even:bg-gray-50 border-b ">
-            <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">1</td>
-            <td className="px-6 py-4">User 1</td>
-            <td className="px-6 py-4">Programmer</td>
-            <td className="px-6 py-4">Front End Developer</td>
-            <td className="px-6 py-4">8 Desember 2023</td>
-          </tr>
+          {children}
         </tbody>
       </table>
     </PanelContainer>
   )
 }
-
-
-const PanelContainer = (props) => {
-  const { panelName, panelLink, children } = props
-  return (
-    <div className='p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 xl:mb-0'>
-      <div className='flex justify-between items-center'>
-        <h1 className='text-xl font-medium'>{panelName}</h1>
-        <Link to={panelLink} className='text-white border py-2 px-4 bg-green-500 rounded-lg'>Lihat Semua</Link>
-      </div>
-      {children}
-    </div>
-  )
-}
-
-const PanelItem = (props) => {
-  const { Name, Count, Url } = props
-  return (
-    <div className='flex justify-between items-center p-3 border rounded-lg shadow'>
-      <div>
-        <h3 className="text-gray-500"> {Name} </h3>
-        <p className="text-3xl font-bold"> {Count} </p>
-      </div>
-      <div>
-        <Link to={Url} >
-          <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path  d="M9 5l7 7-7 7"/>
-          </svg>
-        </Link>
-      </div>
-    </div>
-  )
-}
-

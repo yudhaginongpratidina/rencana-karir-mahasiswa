@@ -7,7 +7,7 @@ Content-Type: application/json
 
 {
     "email" : "testing@gmail.com",
-    "subject" : "uji coba kirim pesan",
+    "subject" : "naisunaisunaisunaisunaisunaisunaisunaisunaisunaisusunaisunaisunaisunaisunaisunaisunaisunaisunaisunaisu naisunaisunaisunaisunaisunaisu",
     "message" : "komentar"
 }
 
