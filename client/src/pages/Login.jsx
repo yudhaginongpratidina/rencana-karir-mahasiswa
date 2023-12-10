@@ -1,9 +1,14 @@
+// IMPORT LIBRARY
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
+// IMPORT TEMPLATE
 import Auth from '../components/template/Auth'
+
+// IMPORT ELEMENT
 import Input from '../components/elements/Input'
+import AlertMessage from '../components/elements/AlertMessage'
 
 const Login = () => {
 
@@ -54,7 +59,8 @@ const Login = () => {
         profile : userProfile
        }))
 
-       setTimeout(() => { navigate('/admin/dashboard'); }, 1000);
+
+       setTimeout(() => { navigate('/admin/dashboard'); }, 2000);
     } catch (error) {
       setError(error.response.data.msg);
     }
@@ -62,8 +68,9 @@ const Login = () => {
 
   return (
     <Auth name="Login" alternative="If you don't have an account ?" alternativeLink="/register" alternativeText="Sign Up" onSubmit={Login}>
-      {error && <p className="text-red-500 text-center">{error}</p>}
-      {success && <p className="text-green-500 text-center">{success}</p>}
+
+      {error && <AlertMessage type="error" message={error} color="red" />}
+      {success && <AlertMessage type="success" message={success} color="green" />}
 
       <Input type="email" name="Email" placeholder="name@company.com" value={email} onChange={(e) => setEmail(e.target.value)} />
       <Input type="password" name="Password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} />

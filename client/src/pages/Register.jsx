@@ -1,9 +1,15 @@
+// IMPORT LIBRARY
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
-import Auth from '../components/template/Auth'
-import Input from '../components/elements/Input'
 import axios from 'axios'
+
+
+// IMPORT TEMPLATE
+import Auth from '../components/template/Auth'
+
+// IMPORT ELEMENT
+import Input from '../components/elements/Input'
+import AlertMessage from '../components/elements/AlertMessage'
 
 const Register = () => {
 
@@ -45,8 +51,8 @@ const Register = () => {
   return (
     <Auth name="Register" alternative="Already have an account?" alternativeLink="/login" alternativeText="Sign in" onSubmit={Register} >
 
-      {error && <p className="text-red-500 text-center">{error}</p>}
-      {success && <p className="text-green-500 text-center">{success}</p>}
+      {error && <AlertMessage type="error" message={error} color="red" />}
+      {success && <AlertMessage type="success" message={success} color="green" />}
 
       <Input type="text" name="Name" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
       <Input type="email" name="Email" placeholder="name@company.com" value={email} onChange={(e) => setEmail(e.target.value)} />
