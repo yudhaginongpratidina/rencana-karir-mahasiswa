@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
 import useSWR, {useSWRConfig} from "swr";
 import axios from 'axios'
-import { formatDistanceToNow, parseISO, set } from 'date-fns';
+import { formatDistanceToNow, parseISO } from 'date-fns';
 import { id } from 'date-fns/locale';
 
 
@@ -65,7 +65,7 @@ const AdminDashboard = () => {
         <div className='grid grid-cols-1 my-4 xl:grid-cols-2 xl:gap-4'>
           <LeftPanel>
               {data?.slice(0, 5).map((message, index) => (
-                <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50">
                   <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{index + 1}</th>
                   <td className="px-6 py-4 text-left"> {formatDistanceToNow(parseISO(message.createdAt), { addSuffix: true, locale: id })} </td>
                   <td className="px-6 py-4">{message.subject}</td>
@@ -101,10 +101,12 @@ const LeftPanel = (props) => {
     <PanelContainer panelName="Pesan Masuk Hari Ini" panelLink="/admin/message">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 mt-5 overflow-auto">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-          <th scope="col" className="px-6 py-3 w-3">No</th>
-          <th scope="col" className="px-6 py-3 text-left w-56">Date</th>
-          <th scope="col" className="px-6 py-3">Subject</th>
-          <th scope="col" className="px-6 py-3 text-center">Aksi</th>
+          <tr>
+            <th scope="col" className="px-6 py-3 w-3">No</th>
+            <th scope="col" className="px-6 py-3 text-left w-56">Date</th>
+            <th scope="col" className="px-6 py-3">Subject</th>
+            <th scope="col" className="px-6 py-3 text-center">Aksi</th>
+          </tr>
         </thead>
         <tbody>
           {children}
@@ -116,7 +118,7 @@ const LeftPanel = (props) => {
 
 const RightPanel = () => {
   return (
-    <PanelContainer panelName="Data" panelLink="/admin/message">
+    <PanelContainer panelName="Data" panelLink="/admin/data">
       <div className='my-3 grid grid-cols-1 gap-4 md:grid-cols-4'>
         <PanelItem Name="Rule" Count="10" Url="/admin/user" />
         <PanelItem Name="Admin" Count="10" Url="/admin/user" />
@@ -132,14 +134,16 @@ const ButtomPanel = (props) => {
 
   const { children } = props;
   return (
-    <PanelContainer panelName="Riwayat" panelLink="/admin/message">
+    <PanelContainer panelName="Riwayat" panelLink="/admin/riwayat">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 mt-5">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-          <th scope="col" className="px-6 py-3">No</th>
-          <th scope="col" className="px-6 py-3">Name</th>
-          <th scope="col" className="px-6 py-3">Bidang Pekerjaan</th>
-          <th scope="col" className="px-6 py-3">Pekerjaan</th>
-          <th scope="col" className="px-6 py-3">Date</th>
+          <tr>
+            <th scope="col" className="px-6 py-3">No</th>
+            <th scope="col" className="px-6 py-3">Name</th>
+            <th scope="col" className="px-6 py-3">Bidang Pekerjaan</th>
+            <th scope="col" className="px-6 py-3">Pekerjaan</th>
+            <th scope="col" className="px-6 py-3">Date</th>
+          </tr>
         </thead>
         <tbody>
           {children}

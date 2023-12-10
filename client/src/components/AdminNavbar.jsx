@@ -23,7 +23,7 @@ const AdminNavbar = () => {
         },
         {
             name: "Data",
-            url: "/admin/dashboard",
+            url: "/admin/data",
         },
         {
             name: "Message",
@@ -31,7 +31,7 @@ const AdminNavbar = () => {
         },
         {
             name: "Riwayat",
-            url: "/admin/dashboard",
+            url: "/admin/riwayat",
         }
     ]
 
