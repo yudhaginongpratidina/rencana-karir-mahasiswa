@@ -49,13 +49,11 @@ const Login = () => {
       const { data } = response.data;
 
       const userId = data.id;
-      const userEmail = data.email;
       const userProfile = data.profile;
       
       const localStorageKey = 'Credentials'
       localStorage.setItem(localStorageKey, JSON.stringify({ 
         id : userId,
-        email : userEmail,
         profile : userProfile
        }))
 

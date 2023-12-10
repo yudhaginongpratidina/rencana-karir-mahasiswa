@@ -62,6 +62,8 @@ const updateUser = async (req, res) => {
         const id = req.params.id;
         const {name, password, re_password} = req.body;
 
+        if (name === "" || password === "" || re_password === "") return res.status(400).json({msg: "Please fill in all fields"});
+
         if (password !== re_password) return res.status(400).json({msg: "Password doesn't match"});
         const hashPassword = await bcrypt.hash(password, 10);
 

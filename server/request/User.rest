@@ -2,7 +2,7 @@
 GET http://localhost:4000/api/users
 
 ### MENDAPATKAN  DATA USER BERDASARKAN ID
-GET http://localhost:4000/api/users/4
+GET http://localhost:4000/api/users/15
 
 ### MEMBUAT USER BARU
 POST http://localhost:4000/api/users
