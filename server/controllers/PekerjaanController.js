@@ -16,7 +16,7 @@ const getPekerjaanByKode = async (req, res) => {
     try {
         const kode = req.params.kode;
         const response = await prisma.pekerjaan.findFirst({ where: { kode: kode }});
-        if (!response) return res.status(404).json({msg: `Data Pekerjaan dengan kode ${kode} sudah pernah diinput`});
+        if (!response) return res.status(404).json({msg: `Data Pekerjaan dengan kode ${kode} sudah pernah tditemukan`});
         res.status(200).json({msg:'success', data: response});    
     } catch (error) {
         console.log(error);

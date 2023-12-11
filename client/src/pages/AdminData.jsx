@@ -20,6 +20,7 @@ const AdminData = () => {
 
   const resetMessage = () =>  setSuccess('') && setError('')
 
+  const TambahBidangPekerjaan = () => navigate('/admin/pekerjaan/bidang')
   const TambahPekerjaan = () => navigate('/admin/pekerjaan/tambah')
 
 
@@ -33,9 +34,9 @@ const AdminData = () => {
     }
   }
 
-  const deletePekerjaan = async (id) => {
+  const deletePekerjaan = async (kode) => {
     try {
-      const response = await axios.delete(`http://localhost:4000/api/pekerjaan/${id}`)
+      const response = await axios.delete(`http://localhost:4000/api/pekerjaan/${kode}`)
       mutate('pekerjaan')
       if (response) {
         resetMessage();
@@ -63,10 +64,11 @@ const AdminData = () => {
 
 
 
-        <div className='grid grid-cols-1 gap-4 md:grid-cols-3 mt-4'>
-          <Button name="Tambah Pekerjaan (P)" onClick={() => {TambahPekerjaan()}} color="green" variant="w-full"/>
-          <Button name="Tambah Kriteria (G)" color="green" variant="w-full"/>
-          <Button name="Tambah Rule (R)" color="green" variant="w-full"/>
+        <div className='grid grid-cols-1 gap-4 md:grid-cols-4 mt-4'>
+          <Button name="Tambah Bidang Pekerjaan" onClick={() => { TambahBidangPekerjaan()} } color="green" variant="w-full"/>
+          <Button name="Tambah Pekerjaan" onClick={() => { TambahPekerjaan()} } color="green" variant="w-full"/>
+          <Button name="Tambah Kriteria" color="green" variant="w-full"/>
+          <Button name="Tambah Rule" color="green" variant="w-full"/>
         </div>
 
 
@@ -89,8 +91,8 @@ const AdminData = () => {
                     <td className="px-6 py-4">{pekerjaan.kode}</td>
                     <td className="px-6 py-4">{pekerjaan.name}</td>
                     <td className="px-6 py-4 flex gap-2">
-                      <Button name="Hapus" color="red" onClick={() => {deletePekerjaan(pekerjaan.id)}} variant="w-full" />
-                      <Link to={`/admin/pekerjaan/${pekerjaan.id}/edit`} className='w-full px-2 py-3 bg-blue-500 text-white text-center'> Edit </Link>
+                      <Button name="Hapus" color="red" onClick={() => {deletePekerjaan(pekerjaan.kode)}} variant="w-full" />
+                      <Link to={`/admin/pekerjaan/${pekerjaan.kode}/edit`} className='w-full px-2 py-3 bg-blue-500 text-white text-center'> Edit </Link>
                     </td>
                   </tr>
                 ))
@@ -98,36 +100,6 @@ const AdminData = () => {
             </tbody>
           </table>
         </div>
-
-
-        <div className='w-full py-3'>
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500 mt-5 overflow-auto">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-              <tr>
-                <th scope="col" className="px-6 py-3 w-3">No</th>
-                <th scope="col" className="px-6 py-3">Kode Kriteria</th>
-                <th scope="col" className="px-6 py-3">Kriteria</th>
-                <th scope="col" className="px-6 py-3 text-center">Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* {
-                data?.map((pekerjaan, index) => (
-                  <tr key={index} className="bg-white border-b  hover:bg-gray-50">
-                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{index + 1}</th>
-                    <td className="px-6 py-4">{pekerjaan.kode}</td>
-                    <td className="px-6 py-4">{pekerjaan.name}</td>
-                    <td className="px-6 py-4 flex gap-2">
-                      <Button name="Hapus" color="red" onClick={() => {deletePekerjaan(pekerjaan.id)}} variant="w-full" />
-                      <Link to={`/admin/pekerjaan/${pekerjaan.id}/edit`} className='w-full px-2 py-3 bg-blue-500 text-white text-center'> Edit </Link>
-                    </td>
-                  </tr>
-                ))
-              } */}
-            </tbody>
-          </table>
-        </div>
-
 
 
 

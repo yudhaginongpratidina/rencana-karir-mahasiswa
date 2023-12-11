@@ -30,12 +30,14 @@ const MessageRoute = require('./routers/MessageRoute')
 
 const BidangRoute = require('./routers/BidangRoute')
 const PekerjaanRoute = require('./routers/PekerjaanRoute')
+const KriteriaRoute = require('./routers/KriteriaRoute')
 
 app.use(UserRoute)
 app.use(MessageRoute)
 
 app.use(BidangRoute)
 app.use(PekerjaanRoute)
+app.use(KriteriaRoute)
 
 app.get('/*', (req, res) => res.status(404).json({ message: 'Not Found' }));
 

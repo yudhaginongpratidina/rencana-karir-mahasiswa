@@ -13,7 +13,7 @@ import AlertMessage from '../components/elements/AlertMessage'
 const AdminPekerjaan = (props) => {
 
     const navigate = useNavigate();
-    const { id } = useParams();
+    const { kode } = useParams();
 
     const [Kode, setKode] = useState('')
     const [name, setName] = useState('')
@@ -26,11 +26,11 @@ const AdminPekerjaan = (props) => {
         setSuccess('');
     }
 
-    if (id) {
+    if (kode) {
         useEffect(() => {
-            const getPekerjaanById = async () => {
+            const getPekerjaanByKode = async () => {
                 try {
-                    const response = await axios.get(`http://localhost:4000/api/pekerjaan/${id}`)
+                    const response = await axios.get(`http://localhost:4000/api/pekerjaan/${kode}`)
                     const { data } = response.data
                     setKode(data.kode)
                     setName(data.name)
@@ -39,8 +39,8 @@ const AdminPekerjaan = (props) => {
                     setError
                 }
             }
-            getPekerjaanById()
-        }, [id])
+            getPekerjaanByKode()
+        }, [kode])
     }
 
     const createPekerjaan = async (e) => {
@@ -48,7 +48,6 @@ const AdminPekerjaan = (props) => {
             e.preventDefault();
 
             const response = await axios.post("http://localhost:4000/api/pekerjaan", {
-                kode        : Kode,
                 name        : name,
                 description : description
             })
@@ -66,7 +65,7 @@ const AdminPekerjaan = (props) => {
         try {
             e.preventDefault();
 
-            const response = await axios.patch(`http://localhost:4000/api/pekerjaan/${id}`, {
+            const response = await axios.patch(`http://localhost:4000/api/pekerjaan/${kode}`, {
                 name        : name,
                 description : description
             })
@@ -96,9 +95,14 @@ const AdminPekerjaan = (props) => {
                     <h1 className='text-center font-medium'>Data Pekerjaan</h1>
                     <form className='w-full border max-w-2xl mx-auto mt-4 px-4 py-5 rounded' onSubmit={ panelName === 'Tambah Pekerjaan' ? createPekerjaan : updatePekerjaan }>
                         
-                        <Input type="text" name="Kode" placeholder="Kode Pekerjaan" value={Kode} onChange={(e) => setKode(e.target.value)} />
                         <Input type="text" name="Name" placeholder="Name Pekerjaan" value={name} onChange={(e) => setName(e.target.value)} />
-                        <Input type="text" name="Description" placeholder="Description Pekerjaan" value={description} onChange={(e) => setDescription(e.target.value)} />
+
+
+                        <div className='mt-2'>
+                            <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900">Deskripsi Pekerjaan</label>
+                            <textarea value={description} onChange={(e) => setDescription(e.target.value)} id="description"  rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Write your thoughts here..." required></textarea>
+                        </div>
+
 
                         { panelName === 'Tambah Pekerjaan' ? (
                             <button type='submit' className='w-full bg-blue-500 text-white mt-3 py-2'>Tambah Data</button>

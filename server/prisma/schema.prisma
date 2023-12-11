@@ -7,7 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 // TABEL USER
 model User {
   id        Int      @id @default(autoincrement())
@@ -19,27 +18,70 @@ model User {
   updatedAt DateTime @default(now())
 }
 
-
 // TABEL BIDANG
 model Bidang {
-  id            Int       @id @default(autoincrement())
-  kode          String    @unique
-  name          String
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now())
-}
+  id        Int      @id @default(autoincrement())
+  kode      String   @unique
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 
+  rules     Rule[]
+}
 
 // TABEL PEKERJAAN
 model Pekerjaan {
-  id            Int       @id @default(autoincrement())
-  kode          String    @unique
-  name          String
-  description   String?   @db.Text
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now())
+  id          Int      @id @default(autoincrement())
+  kode        String   @unique
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+
+  rules       Rule[]
 }
 
+// TABEL KRITERIA
+model Kriteria {
+  id        Int      @id @default(autoincrement())
+  kode      String   @unique
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  rules     Rule[]
+}
+
+// TABEL RULE
+model Rule {
+  id            Int       @id @default(autoincrement())
+  kode          String    @unique
+  kodeBidang    String
+  kodePekerjaan String
+  kodeKriteria  String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  History       History[]
+
+  bidang       Bidang    @relation(fields: [kodeBidang], references: [kode])
+  pekerjaan    Pekerjaan @relation(fields: [kodePekerjaan], references: [kode])
+  kriteria     Kriteria  @relation(fields: [kodeKriteria], references: [kode])
+}
+
+
+//  TABEL HISTORY ATAU RIWAYAT CEK KARIR
+model History {
+  id        Int      @id @default(autoincrement())
+  name      String
+  gender    String
+  
+  koderRule String
+  rule  Rule @relation(fields: [koderRule], references: [kode])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
 
 // TABEL PESAN
 model Message {
@@ -48,4 +90,5 @@ model Message {
   subject   String
   message   String
   createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 }
