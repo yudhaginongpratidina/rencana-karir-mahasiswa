@@ -1,1 +1,4 @@
-PORT=xxxx
+# PORT=4000
+
+# DATABASE_URL="tipe_database://db_user:db_pass@localhost:db_port/db_name
+# DATABASE_URL="mysql://root:root@localhost:3306/example"

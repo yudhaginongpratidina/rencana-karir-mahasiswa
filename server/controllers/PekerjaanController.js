@@ -12,11 +12,11 @@ const getPekerjaan = async (req, res) => {
 }
 
 
-const getPekerjaanById = async (req, res) => {
+const getPekerjaanByKode = async (req, res) => {
     try {
-        const id = req.params.id;
-        const response = await prisma.pekerjaan.findFirst({ where: { id: Number(id) }});
-        if (!response) return res.status(404).json({msg: "Pekerjaan not found"});
+        const kode = req.params.kode;
+        const response = await prisma.pekerjaan.findFirst({ where: { kode: kode }});
+        if (!response) return res.status(404).json({msg: `Data Pekerjaan dengan kode ${kode} sudah pernah diinput`});
         res.status(200).json({msg:'success', data: response});    
     } catch (error) {
         console.log(error);
@@ -26,35 +26,54 @@ const getPekerjaanById = async (req, res) => {
 
 const createPekerjaan = async (req, res) => {
     try {
-        const { kode, name, description } = req.body;
+        const { name, description } = req.body;
 
-        const nameExist = await prisma.pekerjaan.findFirst({ where: { name: name }});
-        if (nameExist) return res.status(400).json({msg: `Data Pekerjaan dengan nama ${name} sudah pernah di input`});
+        const nameExist = await prisma.pekerjaan.findFirst({ where: { name: name } });
+        if (nameExist) {
+            return res.status(400).json({ msg: `${name} sudah pernah diinput pada kode ${nameExist.kode}` });
+        }
 
-        if (name === "" || description === "") return res.status(400).json({msg: "Please fill in all fields"});
+        if (name === "" || description === "") {
+            return res.status(400).json({ msg: "Please fill in all fields" });
+        }
+
+        // Mendapatkan id terakhir dari record
+        const lastRecord = await prisma.pekerjaan.findFirst({
+            orderBy: {
+                id: "desc",
+            },
+        });
+
+        // Menghitung nomor untuk digunakan pada kode berikutnya
+        const nextNumber = lastRecord ? parseInt(lastRecord.kode.slice(1), 10) + 1 : 1;
+
+        // Membuat kode dengan format "PXX"
+        const nextCode = `P${nextNumber.toString().padStart(2, '0')}`;
+
         const response = await prisma.pekerjaan.create({
             data: {
-                kode        : kode,
-                name        : name,
-                description : description
-            }
-        })
+                kode: nextCode,
+                name: name,
+                description: description,
+            },
+        });
 
-        return res.status(201).json({msg:'Data Pekerjaan Berhasil Diatambahkan', data: response});
+        return res.status(201).json({ msg: `Data Pekerjaan ${name} Berhasil Ditambah`, data: response });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ msg: error.message });
     }
-}
+};
+
 
 const updatePekerjaan = async (req, res) => {
     try {
-        const id = req.params.id;
+        const kode = req.params.kode;
         const { name, description } = req.body;
 
         if (name === "" || description === "") return res.status(400).json({msg: "Please fill in all fields"});
         const response = await prisma.pekerjaan.update({
-            where: { id: Number(id) },
+            where: { kode: kode },
             data: {
                 name        : name,
                 description : description,
@@ -72,11 +91,11 @@ const updatePekerjaan = async (req, res) => {
 
 const deletePekerjaan = async (req, res) => {
     try {
-        const id = req.params.id;
-        const exist = await prisma.pekerjaan.findFirst({ where: { id: Number(id) }});
-        if (!exist) return res.status(404).json({msg: "Pekerjaan not found"});
-        const response = await prisma.pekerjaan.delete({ where: { id: Number(id) }});
-        return res.status(200).json({msg: "Pekerjaan deleted successfully", data: response});
+        const kode = req.params.kode;
+        const exist = await prisma.pekerjaan.findFirst({ where: { kode: kode }});
+        if (!exist) return res.status(404).json({msg: `Data Pekerjaan dengan kode ${kode} tidak ditemukan`});
+        const response = await prisma.pekerjaan.delete({ where: { kode: kode }});
+        return res.status(200).json({msg: `Data Pekerjaan ${kode} Berhasil Dihapus`, data: response});
     } catch (error) {
         return res.status(500).json({ msg: error.message });
     }
@@ -85,7 +104,7 @@ const deletePekerjaan = async (req, res) => {
 
 module.exports = {
     getPekerjaan,
-    getPekerjaanById,
+    getPekerjaanByKode,
     createPekerjaan,
     updatePekerjaan,
     deletePekerjaan

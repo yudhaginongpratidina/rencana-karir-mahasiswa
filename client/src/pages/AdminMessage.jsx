@@ -60,7 +60,7 @@ const AdminMessage = () => {
         {success && <AlertMessage type="success" message={success} color="green" />}
       </div>
 
-      <PanelContainer panelName="Semua Pesan" panelLink="/admin/message">
+      <PanelContainer panelName="Semua Pesan" panelLink="/admin/dashboard" nameButton="Kembali">
         <div>
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 mt-5 overflow-auto">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50">

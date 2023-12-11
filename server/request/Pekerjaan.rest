@@ -2,22 +2,21 @@
 GET http://localhost:4000/api/pekerjaan
 
 
-### MENDAPATKAN DATA PEKERJAAN BERDASARKAN ID
-GET http://localhost:4000/api/pekerjaan/1
+### MENDAPATKAN DATA PEKERJAAN BERDASARKAN KODE
+GET http://localhost:4000/api/pekerjaan/p02
 
 ### MENAMBAH DATA PEKERJAAN BARU
 POST http://localhost:4000/api/pekerjaan
 Content-Type: application/json
 
 {
-    "kode" : "P01",
-    "name" : "Web Developer",
+    "name" : "Front End Web",
     "description" : "Pekerjaan IT"
 }
 
 
 ### UPDATE DATA PEKERJAAN 
-PATCH http://localhost:4000/api/pekerjaan/1
+PATCH http://localhost:4000/api/pekerjaan/p01
 Content-Type: application/json
 
 {
@@ -27,4 +26,4 @@ Content-Type: application/json
 
 
 ### DELETE DATA PEKERJAAN BERDASARKAN ID
-DELETE http://localhost:4000/api/pekerjaan/1
+DELETE http://localhost:4000/api/pekerjaan/p01
