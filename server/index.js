@@ -27,10 +27,14 @@ app.use(express.static(path.join(__dirname, 'public')))
 // ROUTES
 const UserRoute = require('./routers/UserRoute')
 const MessageRoute = require('./routers/MessageRoute')
+
+const BidangRoute = require('./routers/BidangRoute')
 const PekerjaanRoute = require('./routers/PekerjaanRoute')
 
 app.use(UserRoute)
 app.use(MessageRoute)
+
+app.use(BidangRoute)
 app.use(PekerjaanRoute)
 
 app.get('/*', (req, res) => res.status(404).json({ message: 'Not Found' }));

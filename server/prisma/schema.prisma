@@ -8,7 +8,7 @@ datasource db {
 }
 
 
-// 
+// TABEL USER
 model User {
   id        Int      @id @default(autoincrement())
   name      String
@@ -20,17 +20,17 @@ model User {
 }
 
 
-
+// TABEL BIDANG
 model Bidang {
   id            Int       @id @default(autoincrement())
   kode          String    @unique
   name          String
-  description   String?   @db.Text
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @default(now())
 }
 
 
+// TABEL PEKERJAAN
 model Pekerjaan {
   id            Int       @id @default(autoincrement())
   kode          String    @unique
@@ -41,6 +41,7 @@ model Pekerjaan {
 }
 
 
+// TABEL PESAN
 model Message {
   id        Int      @id @default(autoincrement())
   email     String
