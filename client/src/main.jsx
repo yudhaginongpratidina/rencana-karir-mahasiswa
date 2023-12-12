@@ -21,15 +21,15 @@ import AdminProfile from "./pages/AdminProfile";
 import AdminMessage from "./pages/AdminMessage";
 
 import AdminData from "./pages/AdminData";
-import AdminBidangPekerjaan from "./pages/AdminBidangPekerjaan";
+import ViewMessage from "./components/ViewMessage";
+
+// HALAMAN FORM INPUT DATA
+import AdminBidang from "./pages/AdminBidang";
 import AdminPekerjaan from "./pages/AdminPekerjaan";
 import AdminRiwayat from "./pages/AdminRiwayat";
 
-import ViewMessage from "./components/ViewMessage";
-
-
-
-// IMPORT DATA
+// HALAMAN VIEW DATA
+import DataBidang from "./components/DataBidang";
 import DataPekerjaan from "./components/DataPekerjaan";
 
 
@@ -62,12 +62,16 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
         {/* ROUTE DATA */}
         <Route path="/admin/data" element={<AdminData />} />
+        <Route path="/admin/data/bidang" element={<DataBidang />} />
         <Route path="/admin/data/pekerjaan" element={<DataPekerjaan />} />
 
+        {/* ROUTE BIDANG */}
+        <Route path="/admin/bidang/tambah" element={<AdminBidang panelName="Tambah Bidang" panelLink="/admin/data/bidang" nameButton="Kembali" />} />
+        <Route path="/admin/bidang/:kode/edit" element={<AdminBidang panelName="Edit Bidang" panelLink="/admin/data/bidang" nameButton="Kembali" />} />
+
         {/* ROUTE PEKERJAAN */}
-        <Route path="/admin/pekerjaan/bidang" element={<AdminBidangPekerjaan />} />
-        <Route path="/admin/pekerjaan/tambah" element={<AdminPekerjaan panelName="Tambah Pekerjaan" panelLink="/admin/data" nameButton="Kembali" />} />
-        <Route path="/admin/pekerjaan/:kode/edit" element={<AdminPekerjaan panelName="Edit Pekerjaan" panelLink="/admin/data" nameButton="Kembali" />} />
+        <Route path="/admin/pekerjaan/tambah" element={<AdminPekerjaan panelName="Tambah Pekerjaan" panelLink="/admin/data/pekerjaan" nameButton="Kembali" />} />
+        <Route path="/admin/pekerjaan/:kode/edit" element={<AdminPekerjaan panelName="Edit Pekerjaan" panelLink="/admin/data/pekerjaan" nameButton="Kembali" />} />
 
         {/* ROUTE HISTORY ATAU RIWAYAT */}
         <Route path="/admin/riwayat" element={<AdminRiwayat />} />

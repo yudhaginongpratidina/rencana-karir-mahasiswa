@@ -68,7 +68,8 @@ const updateBidang = async (req, res) => {
         const response = await prisma.bidang.update({
             where: { kode: kode },
             data: {
-                name        : name
+                name        : name,
+                updatedAt   : new Date()
             }
         })
 
