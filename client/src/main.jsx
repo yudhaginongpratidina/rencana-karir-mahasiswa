@@ -29,6 +29,11 @@ import ViewMessage from "./components/ViewMessage";
 
 
 
+// IMPORT DATA
+import DataPekerjaan from "./components/DataPekerjaan";
+
+
+
 // IMPORT ERROR PAGE
 import Error404 from "./pages/Error404";
 
@@ -37,27 +42,34 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <Routes>
 
+        {/* ROUTE USER */}
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/career" element={<Career />} />
         <Route path="/contact" element={<Contact />} />'
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
         <Route path="*" element={<Error404 />} />
 
+        {/* ROUTE ADMIN */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        <Route path="/admin/profile" element={<AdminProfile />} />
-        
+        <Route path="/admin/profile" element={<AdminProfile />} />     
+
+        {/* ROUTE PESAN */}   
         <Route path="/admin/message" element={<AdminMessage />} />
         <Route path="/admin/message/:id" element={<ViewMessage />} />
 
+        {/* ROUTE DATA */}
         <Route path="/admin/data" element={<AdminData />} />
+        <Route path="/admin/data/pekerjaan" element={<DataPekerjaan />} />
 
+        {/* ROUTE PEKERJAAN */}
         <Route path="/admin/pekerjaan/bidang" element={<AdminBidangPekerjaan />} />
         <Route path="/admin/pekerjaan/tambah" element={<AdminPekerjaan panelName="Tambah Pekerjaan" panelLink="/admin/data" nameButton="Kembali" />} />
         <Route path="/admin/pekerjaan/:kode/edit" element={<AdminPekerjaan panelName="Edit Pekerjaan" panelLink="/admin/data" nameButton="Kembali" />} />
 
-
+        {/* ROUTE HISTORY ATAU RIWAYAT */}
         <Route path="/admin/riwayat" element={<AdminRiwayat />} />
 
       </Routes>

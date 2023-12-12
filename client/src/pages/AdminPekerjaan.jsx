@@ -15,7 +15,6 @@ const AdminPekerjaan = (props) => {
     const navigate = useNavigate();
     const { kode } = useParams();
 
-    const [Kode, setKode] = useState('')
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [error, setError] = useState('')
@@ -32,7 +31,6 @@ const AdminPekerjaan = (props) => {
                 try {
                     const response = await axios.get(`http://localhost:4000/api/pekerjaan/${kode}`)
                     const { data } = response.data
-                    setKode(data.kode)
                     setName(data.name)
                     setDescription(data.description)
                 } catch (error) {
@@ -54,7 +52,7 @@ const AdminPekerjaan = (props) => {
 
             resetMessages();
             if (response) setSuccess(response.data.msg);
-            setTimeout(() => { navigate('/admin/data') }, 2000);
+            setTimeout(() => { navigate('/admin/data/pekerjaan') }, 2000);
         } catch (error) {
             resetMessages();
             setError(error.response.data.msg);
@@ -72,7 +70,7 @@ const AdminPekerjaan = (props) => {
 
             resetMessages();
             if (response) setSuccess(response.data.msg);
-            setTimeout(() => { navigate('/admin/data') }, 2000);
+            setTimeout(() => { navigate('/admin/data/pekerjaan') }, 2000);
         } catch (error) {
             resetMessages();
             setError(error.response.data.msg);
