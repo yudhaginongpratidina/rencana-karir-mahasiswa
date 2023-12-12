@@ -71,7 +71,8 @@ const updateKriteria = async (req, res) => {
         const response = await prisma.kriteria.update({
             where: { kode: kode },
             data: {
-                name        : name
+                name        : name,
+                updatedAt   : new Date()
             }
         })
 

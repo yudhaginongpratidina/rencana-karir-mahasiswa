@@ -22,15 +22,18 @@ import AdminMessage from "./pages/AdminMessage";
 
 import AdminData from "./pages/AdminData";
 import ViewMessage from "./components/ViewMessage";
+import AdminRiwayat from "./pages/AdminRiwayat";
 
 // HALAMAN FORM INPUT DATA
 import AdminBidang from "./pages/AdminBidang";
 import AdminPekerjaan from "./pages/AdminPekerjaan";
-import AdminRiwayat from "./pages/AdminRiwayat";
+import AdminKriteria from "./pages/AdminKriteria";
+
 
 // HALAMAN VIEW DATA
 import DataBidang from "./components/DataBidang";
 import DataPekerjaan from "./components/DataPekerjaan";
+import DataKriteria from "./components/DataKriteria";
 
 
 
@@ -64,6 +67,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/admin/data" element={<AdminData />} />
         <Route path="/admin/data/bidang" element={<DataBidang />} />
         <Route path="/admin/data/pekerjaan" element={<DataPekerjaan />} />
+        <Route path="/admin/data/kriteria" element={<DataKriteria />} />
 
         {/* ROUTE BIDANG */}
         <Route path="/admin/bidang/tambah" element={<AdminBidang panelName="Tambah Bidang" panelLink="/admin/data/bidang" nameButton="Kembali" />} />
@@ -72,6 +76,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         {/* ROUTE PEKERJAAN */}
         <Route path="/admin/pekerjaan/tambah" element={<AdminPekerjaan panelName="Tambah Pekerjaan" panelLink="/admin/data/pekerjaan" nameButton="Kembali" />} />
         <Route path="/admin/pekerjaan/:kode/edit" element={<AdminPekerjaan panelName="Edit Pekerjaan" panelLink="/admin/data/pekerjaan" nameButton="Kembali" />} />
+
+        {/* ROUTE KRITERIA */}
+        <Route path="/admin/kriteria/tambah" element={<AdminKriteria panelName="Tambah Kriteria" panelLink="/admin/data/kriteria" nameButton="Kembali" />} />
+        <Route path="/admin/kriteria/:kode/edit" element={<AdminKriteria panelName="Edit Kriteria" panelLink="/admin/data/kriteria" nameButton="Kembali" />} />
 
         {/* ROUTE HISTORY ATAU RIWAYAT */}
         <Route path="/admin/riwayat" element={<AdminRiwayat />} />
