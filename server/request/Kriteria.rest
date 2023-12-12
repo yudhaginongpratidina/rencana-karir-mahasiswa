@@ -10,7 +10,7 @@ POST http://localhost:4000/api/kriteria
 Content-Type: application/json
 
 {
-    "name" : "Jika apakah menguasi bahasa pemrograman web (PHP, Javascript, HTML, CSS, dll) ?"
+    "name" : "Suka kerja tim?"
 }
 
 

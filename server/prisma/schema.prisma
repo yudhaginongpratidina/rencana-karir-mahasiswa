@@ -48,8 +48,6 @@ model Kriteria {
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
-
-  rules     Rule[]
 }
 
 // TABEL RULE
@@ -66,7 +64,6 @@ model Rule {
 
   bidang       Bidang    @relation(fields: [kodeBidang], references: [kode])
   pekerjaan    Pekerjaan @relation(fields: [kodePekerjaan], references: [kode])
-  kriteria     Kriteria  @relation(fields: [kodeKriteria], references: [kode])
 }
 
 

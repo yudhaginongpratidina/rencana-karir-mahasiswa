@@ -9,7 +9,7 @@ POST http://localhost:4000/api/bidang
 Content-Type: application/json 
 
 {
-    "name" : "Teknologi"
+    "name" : "Industri"
 }
 
 
