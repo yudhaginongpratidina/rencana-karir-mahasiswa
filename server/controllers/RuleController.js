@@ -30,10 +30,16 @@ const getRuleByCode = async (req, res) => {
 
 const getRuleByKriteria = async (req, res) => {
     try {
-        const { kodeKriteria } = req.body;
-        const response = await prisma.rule.findFirst({ where: { kodeKriteria: kodeKriteria }});
-        if (!response) return res.status(404).json({msg: `Data rule dengan kode kriteria ${kodeKriteria} tidak ditemukan`});
-        return res.status(200).json({msg:'success', data: response});
+        const { kodeBidang, kodeKriteria } = req.body;
+
+        // KODE KRITERIA SAMA DI RULE
+        const response = await prisma.rule.findMany({ where: { kodeBidang: kodeBidang, kodeKriteria: kodeKriteria } });
+
+        if (response === 0) {
+            return res.status(404).json({ msg: `Data rule dengan kode kriteria ${kodeKriteria} tidak ditemukan` });
+        }
+
+        return res.status(200).json({ msg: 'success', data: response });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ msg: error.message });
@@ -50,8 +56,8 @@ const createRule = async (req, res) => {
         if (kriteriaExist) return res.status(400).json({ msg: `Data rule dengan kode kriteria ${kodeKriteria} sudah ada` });
 
         // KODE PEKERJAAN SAMA DI RULE
-        const pekerjaanExist = await prisma.rule.findFirst({ where: { kodePekerjaan: kodePekerjaan } });
-        if (pekerjaanExist) return res.status(400).json({ msg: `Data rule dengan kode pekerjaan ${kodePekerjaan} sudah ada` });
+        // const pekerjaanExist = await prisma.rule.findFirst({ where: { kodePekerjaan: kodePekerjaan } });
+        // if (pekerjaanExist) return res.status(400).json({ msg: `Data rule dengan kode pekerjaan ${kodePekerjaan} sudah ada` });
 
         // MENDAPATKAN ID TERAKHIR DARI RECORD
         const lastRecord = await prisma.rule.findFirst({
