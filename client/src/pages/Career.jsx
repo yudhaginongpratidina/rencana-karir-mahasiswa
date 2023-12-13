@@ -1,117 +1,165 @@
-import React, { useState } from 'react'
-import Navbar from '../components/Navbar'
-import Jumbotron from '../components/Jumbotron'
-import Footer from '../components/Footer'
+import React, { useState } from 'react';
+import Navbar from '../components/Navbar';
+import Jumbotron from '../components/Jumbotron';
+import Footer from '../components/Footer';
+import AlertMessage from '../components/elements/AlertMessage';
+import axios from 'axios';
+import useSWR from 'swr';
+import Button from '../components/elements/Button';
 
 const Career = () => {
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [answers, setAnswers] = useState({});
 
-  const [question1, setQuestion1] = useState('');
-  const [question2, setQuestion2] = useState('');
-  const [question3, setQuestion3] = useState('');
-  const [question4, setQuestion4] = useState('');
-  const [question5, setQuestion5] = useState('');
+  const resetMessage = () => {
+    setSuccess('');
+    setError('');
+  };
 
-  const CekKarir = async (e) => {
-    e.preventDefault();
-    console.log(`Question 1 : ${question1} dan Question 2 : ${question2} dan Question 3 : ${question3} dan Question 4 : ${question4} dan Question 5 : ${question5}`);
-  }
+  const getBidang = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/api/bidang');
+      return response.data.data;
+    } catch (error) {
+      resetMessage();
+      setError(error.response.data.msg);
+    }
+  };
+
+  const getKriteria = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/api/kriteria');
+      return response.data.data;
+    } catch (error) {
+      resetMessage();
+      setError(error.response.data.msg);
+    }
+  };
+
+  const { data: bidang } = useSWR('bidang', getBidang);
+  const { data: kriteria } = useSWR('kriteria', getKriteria);
+
+  const handleInputChange = (field, value) => {
+    setAnswers((prevAnswers) => ({
+      ...prevAnswers,
+      [field]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+
+      // Mendapatkan bidang yang dipilih
+      const bidangTerpilih = answers['bidang'];
+
+      // Mendapatkan kriteria yang dipilih
+      const kriteriaTerpilih = kriteria
+        .filter((k) => answers[k.kode] === 'Ya')
+        .map((k) => k.kode)
+        .join(',');
+
+      // setSuccess(response.data.msg);
+      // setSuccess('Jawaban telah berhasil disubmit');
+
+      console.log('Bidang yang Dipilih:', bidangTerpilih);
+      console.log('Kriteria yang Dipilih:', kriteriaTerpilih);
+
+      const response = await axios.post('http://localhost:4000/api/rules/check', {
+        kodeBidang : bidangTerpilih,
+        kodeKriteria : kriteriaTerpilih
+      })
+
+      if (response) {
+        resetMessage();
+        setSuccess(response.data.msg);
+        console.log(response.data.data);
+      }
+    } catch (error) {
+      setError(error.response.data.msg);
+    }
+  };
 
   return (
     <div>
-        <Navbar />
-        <Jumbotron />
-        <div className="flex flex-col items-center justify-center px-6 pt-8 mx-auto md:h-screen pt:mt-0">
-          <div className="w-full max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow">
-            <h2 className="text-2xl text-center font-bold text-gray-900">{" "}FORM CEK KARIR{" "}</h2>
-            <form className="mt-8 space-y-6" onSubmit={CekKarir}>
+      <Navbar />
+      <Jumbotron />
+      <div className="flex flex-col items-center justify-center px-6 pt-8 mx-auto md:h-screen pt:mt-0">
+        <div className="w-full max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow">
+          <h2 className="text-2xl text-center font-bold text-gray-900">FORM CEK KARIR</h2>
+          <hr />
 
-              <div className="mb-6">
-                <label htmlFor="question1" className="block mb-2 text-sm font-medium text-gray-900">Apakah Anda mempunyai pengalaman Organisasi ?</label>
-                <select 
-                  id="question1"
-                  value={question1}
-                  onChange={(e) => setQuestion1(e.target.value)} 
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                >
-                  <option selected value="">-- Pilih Jawaban Mu --</option>
-                  <option value="Ya">Ya</option>
-                  <option value="Tidak">Tidak</option>
-                </select>
-              </div>
+          <form className="w-full max-w-lg">
+            {/* Dropdown Bidang */}
+            <h1 className='font-medium text-lg text-center'>Bidang</h1>
+            <div className="mb-6">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="bidang">
+                Apa bidang yang kamu sukai
+              </label>
+              <select
+                id="bidang"
+                name="bidang"
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                onChange={(e) => handleInputChange('bidang', e.target.value)}
+              >
+                <option value="">Pilih Bidang yang Kamu Sukai</option>
+                {bidang &&
+                  bidang.map((b) => (
+                    <option key={b.kode} value={b.kode}>
+                      {b.name}
+                    </option>
+                  ))}
+              </select>
+            </div>
 
-              <div className="mb-6">
-                <label htmlFor="question2" className="block mb-2 text-sm font-medium text-gray-900">Keterampilan atau keahlian apa yang Anda miliki saat ini ?</label>
-                <select 
-                  id="question2" 
-                  value={question2}
-                  onChange={(e) => setQuestion2(e.target.value)}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                >
-                  <option selected value="">-- Pilih Jawaban Mu --</option>
-                  <option value="Desain Grafis">Desain Grafis</option>
-                  <option value="Penulis dan Penerjemah">Penulis dan Penerjemah</option>
-                  <option value="Web dan Pemrograman">Web dan Pemrograman</option>
-                  <option value="Visual dan Audio">Visual dan Audio</option>
-                  <option value="Pemasaran dan Periklanan">Pemasaran dan Periklanan</option>
-                  <option value="Konsultasi">Konsultasi</option>
-                  <option value="Lainnya">Lainnya</option>
-                </select>
-              </div>
+            {/* Looping Kriteria dalam bentuk radio button */}
+            <h1 className='font-medium text-lg text-center'>Kriteria</h1>
+            {kriteria &&
+              kriteria.map((k) => (
+                <div key={k.kode} className="mb-6">
+                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor={k.kode}>
+                    {k.name}
+                  </label>
+                  <div>
+                    <label className="inline-flex items-center">
+                      <input
+                        type="radio"
+                        className="form-radio text-indigo-600"
+                        name={k.kode}
+                        value="Ya"
+                        onChange={() => handleInputChange(k.kode, 'Ya')}
+                        required
+                      />
+                      <span className="ml-2">Ya</span>
+                    </label>
+                    <label className="inline-flex items-center ml-6">
+                      <input
+                        type="radio"
+                        className="form-radio text-red-600"
+                        name={k.kode}
+                        value="Tidak"
+                        onChange={() => handleInputChange(k.kode, 'Tidak')}
+                        required
+                      />
+                      <span className="ml-2">Tidak</span>
+                    </label>
+                  </div>
+                </div>
+              ))}
 
-              <div className="mb-6">
-                <label htmlFor="question3" className="block mb-2 text-sm font-medium text-gray-900">Apakah anda memiliki pengalaman kerja atau magang sebelumnya ?</label>
-                <select 
-                  id="question3"
-                  value={question3}
-                  onChange={(e) => setQuestion3(e.target.value)}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                >
-                  <option selected value="">-- Pilih Jawaban Mu --</option>
-                  <option value="Ya">Ya</option>
-                  <option value="Tidak">Tidak</option>
-                </select>
-              </div>
+            <Button type="submit" name="Lihat Hasil" color="blue" variant="w-full" onClick={handleSubmit} />
+          </form>
 
-
-              <div className="mb-6">
-                <label htmlFor="question4" className="block mb-2 text-sm font-medium text-gray-900">Apakah anda suka bekerja secara mandiri atau bekerja bersama tim ?</label>
-                <select 
-                  id="question4"
-                  value={question4}
-                  onChange={(e) => setQuestion4(e.target.value)} 
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                >
-                  <option selected value="">-- Pilih Jawaban Mu --</option>
-                  <option value="Mandiri">Mandiri</option>
-                  <option value="Bersama Tim">Bersama Tim</option>
-                  <option value="Keduanya">Keduanya</option>
-                </select>
-              </div>
-
-
-              <div className="mb-6">
-                <label htmlFor="question5" className="block mb-2 text-sm font-medium text-gray-900">Apakah anda suka bekerja dirumah atau dikantor ?</label>
-                <select 
-                  id="question5"
-                  value={question5}
-                  onChange={(e) => setQuestion5(e.target.value)}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                >
-                  <option selected value="">-- Pilih Jawaban Mu --</option>
-                  <option value="WFH">Di Rumah</option>
-                  <option value="WFO">Di Kantor</option>
-                  <option value="HYBRID">Keduanya</option>
-                </select>
-              </div>
-
-              <button type="submit" className='w-full bg-blue-700 text-white py-3 px-4 rounded-lg'>Cari Tahu Sekarang</button>
-
-            </form>
+          <div>
+            {error && <AlertMessage type="error" message={error} color="red" />}
+            {success && <AlertMessage type="success" message={success} color="green" />}
           </div>
         </div>
-        <Footer />
+      </div>
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default Career
+export default Career;
