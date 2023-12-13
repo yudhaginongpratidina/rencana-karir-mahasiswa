@@ -99,8 +99,8 @@ const updateRule = async (req, res) => {
         if (kriteriaExist) return res.status(400).json({ msg: `Data rule dengan kode kriteria ${kodeKriteria} sudah ada` });
 
         // KODE PEKERJAAN SAMA DI RULE
-        const pekerjaanExist = await prisma.rule.findFirst({ where: { kodePekerjaan: kodePekerjaan } });
-        if (pekerjaanExist) return res.status(400).json({ msg: `Data rule dengan kode pekerjaan ${kodePekerjaan} sudah ada` });
+        // const pekerjaanExist = await prisma.rule.findFirst({ where: { kodePekerjaan: kodePekerjaan } });
+        // if (pekerjaanExist) return res.status(400).json({ msg: `Data rule dengan kode pekerjaan ${kodePekerjaan} sudah ada` });
 
         const response = await prisma.rule.update({
             where: { kode: kode },
