@@ -2,12 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const PanelItem = (props) => {
-    const { Name, Count, Url } = props
+    const { Name, Count, Url, Variant } = props
     return (
-      <div className='flex justify-between items-center p-3 border rounded-lg shadow'>
+      <div className={`flex justify-between items-center p-3 border rounded-lg shadow ${Variant}`}>
         <div>
-          <h3 className="text-gray-500"> {Name} </h3>
-          <p className="text-3xl font-bold"> {Count} </p>
+          <h3 className={`text-gray-500 ${Variant}`}> {Name} </h3>
+          <p className={`text-3xl font-bold ${Variant}`}> {Count} </p>
         </div>
         <div>
           <Link to={Url} >

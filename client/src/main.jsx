@@ -34,7 +34,7 @@ import AdminKriteria from "./pages/AdminKriteria";
 import DataBidang from "./components/DataBidang";
 import DataPekerjaan from "./components/DataPekerjaan";
 import DataKriteria from "./components/DataKriteria";
-
+import DataHistory from "./components/DataHistory";
 
 
 // IMPORT ERROR PAGE
@@ -68,6 +68,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/admin/data/bidang" element={<DataBidang />} />
         <Route path="/admin/data/pekerjaan" element={<DataPekerjaan />} />
         <Route path="/admin/data/kriteria" element={<DataKriteria />} />
+        <Route path="/admin/data/riwayat" element={<DataHistory />} />
 
         {/* ROUTE BIDANG */}
         <Route path="/admin/bidang/tambah" element={<AdminBidang panelName="Tambah Bidang" panelLink="/admin/data/bidang" nameButton="Kembali" />} />

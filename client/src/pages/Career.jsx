@@ -1,25 +1,40 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import useSWR from 'swr';
+
+
+
 import Navbar from '../components/Navbar';
 import Jumbotron from '../components/Jumbotron';
 import Footer from '../components/Footer';
 import AlertMessage from '../components/elements/AlertMessage';
-import axios from 'axios';
-import useSWR from 'swr';
 import Button from '../components/elements/Button';
+import Input from '../components/elements/Input';
 
 const Career = () => {
+
+  const [name, setName] = useState('');
+  const [gender, setGender] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [answers, setAnswers] = useState({});
+  const [resultData, setResultData] = useState(null);
 
-  const resetMessage = () => {
-    setSuccess('');
-    setError('');
-  };
+  const resetMessage = () => setSuccess('') && setError('');
 
   const getBidang = async () => {
     try {
       const response = await axios.get('http://localhost:4000/api/bidang');
+      return response.data.data;
+    } catch (error) {
+      resetMessage();
+      setError(error.response.data.msg);
+    }
+  };
+
+  const getPekerjaan = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/api/pekerjaan');
       return response.data.data;
     } catch (error) {
       resetMessage();
@@ -39,122 +54,205 @@ const Career = () => {
 
   const { data: bidang } = useSWR('bidang', getBidang);
   const { data: kriteria } = useSWR('kriteria', getKriteria);
+  const { data: pekerjaan } = useSWR('pekerjaan', getPekerjaan);
+
 
   const handleInputChange = (field, value) => {
-    setAnswers((prevAnswers) => ({
-      ...prevAnswers,
-      [field]: value,
-    }));
+    setAnswers((prevAnswers) => ({ ...prevAnswers, [field]: value,}));
   };
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
 
-      // Mendapatkan bidang yang dipilih
-      const bidangTerpilih = answers['bidang'];
+      if (!name || !gender) {
+        resetMessage();
+        setError('Nama dan jenis kelamin harus diisi');
+        return;
+      }
 
-      // Mendapatkan kriteria yang dipilih
+      if (!answers['bidang']) {
+        resetMessage();
+        setError('Bidang harus diisi');
+        return;
+      }
+
+      const bidangTerpilih = answers['bidang'];
       const kriteriaTerpilih = kriteria
         .filter((k) => answers[k.kode] === 'Ya')
         .map((k) => k.kode)
         .join(',');
 
-      // setSuccess(response.data.msg);
-      // setSuccess('Jawaban telah berhasil disubmit');
+      const getRule = await axios.post('http://localhost:4000/api/rules/check', {
+        kodeBidang: bidangTerpilih,
+        kodeKriteria: kriteriaTerpilih,
+      });
 
-      console.log('Bidang yang Dipilih:', bidangTerpilih);
-      console.log('Kriteria yang Dipilih:', kriteriaTerpilih);
-
-      const response = await axios.post('http://localhost:4000/api/rules/check', {
-        kodeBidang : bidangTerpilih,
-        kodeKriteria : kriteriaTerpilih
-      })
-
-      if (response) {
+      if (getRule) {
         resetMessage();
-        setSuccess(response.data.msg);
-        console.log(response.data.data);
+        setSuccess(getRule.data.msg);
       }
+
+      const { data } = getRule;
+      setResultData(data.data);
+
+      // console.log(data.data.id);
     } catch (error) {
-      setError(error.response.data.msg);
+      resetMessage();
+      setError(error.getRule.data.msg);
     }
   };
 
+
+  const handleKembali = (e) => {
+    e.preventDefault();
+    
+    if (resultData && resultData.length > 0) {
+      const resultItem = resultData[0];
+
+      console.log(`Name: ${name}`);
+      console.log(`Gender: ${gender}`);
+      console.log(`Bidang Pekerjaan: ${bidang && bidang.find((b) => b.kode === resultItem.kodeBidang).name}`);
+      console.log(`Nama Pekerjaan: ${pekerjaan && pekerjaan.find((p) => p.kode === resultItem.kodePekerjaan).name}`);
+      console.log(`Deskripsi Pekerjaan: ${pekerjaan && pekerjaan.find((p) => p.kode === resultItem.kodePekerjaan).description}`);
+      
+      console.log('Kriteria:');
+      kriteria &&
+        resultItem.kodeKriteria.split(',').forEach((kode) => {
+          const kriteriaItem = kriteria.find((k) => k.kode === kode);
+          console.log(`${kriteriaItem.kode} - ${kriteriaItem.name}`);
+        });
+
+      const response = axios.post('http://localhost:4000/api/history', {
+        name : name,
+        gender : gender,
+        bidangPekerjaan : bidang && bidang.find((b) => b.kode === resultItem.kodeBidang).name,
+        pekerjaan : pekerjaan && pekerjaan.find((p) => p.kode === resultItem.kodePekerjaan).name,
+      })
+
+    } else {
+      console.log('No result data available');
+    }
+  };
   return (
     <div>
       <Navbar />
       <Jumbotron />
-      <div className="flex flex-col items-center justify-center px-6 pt-8 mx-auto md:h-screen pt:mt-0">
+      <div className="flex flex-col items-center justify-center px-6 pt-8 mx-auto pt:mt-0">
         <div className="w-full max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow">
           <h2 className="text-2xl text-center font-bold text-gray-900">FORM CEK KARIR</h2>
           <hr />
 
-          <form className="w-full max-w-lg">
-            {/* Dropdown Bidang */}
-            <h1 className='font-medium text-lg text-center'>Bidang</h1>
-            <div className="mb-6">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="bidang">
-                Apa bidang yang kamu sukai
-              </label>
-              <select
-                id="bidang"
-                name="bidang"
-                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                onChange={(e) => handleInputChange('bidang', e.target.value)}
-              >
+          <form className="w-full max-w-2xl my-4 overflow-hidden">
+            <div className='font-medium text-lg mb-4'> 
+              <h1 className='font-medium text-lg'>Identitas Diri</h1> <hr />
+              <Input type="text" name="Nama" placeholder="Masukkan Nama" value={name} onChange={(e) => setName(e.target.value)} />
+              <div className="mb-4">
+                <h1 className='font-medium text-lg'>Jenis Kelamin</h1>
+                <hr />
+                <label className="block text-gray-700 text-sm font-bold mb-2 mt-3" htmlFor="gender">Pilih Jenis Kelamin</label>
+                <select id="gender" name="gender" className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={(e) => setGender(e.target.value)}>
+                  <option value="">Pilih Jenis Kelamin</option>
+                  <option value="Laki-laki">Laki-laki</option>
+                  <option value="Perempuan">Perempuan</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="mb-4">
+              <h1 className='font-medium text-lg'>Kategori Bidang Pekerjaan</h1> <hr />
+              <label className="block text-gray-700 text-sm font-bold mb-2 mt-3" htmlFor="bidang">Apa bidang yang kamu sukai</label>
+              <select id="bidang" name="bidang" className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={(e) => handleInputChange('bidang', e.target.value)}>
                 <option value="">Pilih Bidang yang Kamu Sukai</option>
-                {bidang &&
-                  bidang.map((b) => (
-                    <option key={b.kode} value={b.kode}>
-                      {b.name}
-                    </option>
-                  ))}
+                {bidang && bidang.map((b) => (<option key={b.kode} value={b.kode}>{b.name}</option>))}
               </select>
             </div>
 
-            {/* Looping Kriteria dalam bentuk radio button */}
-            <h1 className='font-medium text-lg text-center'>Kriteria</h1>
-            {kriteria &&
-              kriteria.map((k) => (
-                <div key={k.kode} className="mb-6">
-                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor={k.kode}>
-                    {k.name}
-                  </label>
-                  <div>
-                    <label className="inline-flex items-center">
-                      <input
-                        type="radio"
-                        className="form-radio text-indigo-600"
-                        name={k.kode}
-                        value="Ya"
-                        onChange={() => handleInputChange(k.kode, 'Ya')}
-                        required
-                      />
-                      <span className="ml-2">Ya</span>
-                    </label>
-                    <label className="inline-flex items-center ml-6">
-                      <input
-                        type="radio"
-                        className="form-radio text-red-600"
-                        name={k.kode}
-                        value="Tidak"
-                        onChange={() => handleInputChange(k.kode, 'Tidak')}
-                        required
-                      />
-                      <span className="ml-2">Tidak</span>
-                    </label>
+            <div className='mb-4'>
+              <h1 className='font-medium text-lg'>Kriteria</h1>< hr />
+              {kriteria &&
+                kriteria.map((k) => (
+                  <div key={k.kode} className="mb-6 mt-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor={k.kode}>{k.name} </label>
+                    <div className='w-full grid grid-cols-2 my-2'>
+                      <label className="inline-flex items-center">
+                        <input type="radio" className="form-radio text-indigo-600" name={k.kode} value="Ya" onChange={() => handleInputChange(k.kode, 'Ya')} required />
+                        <span className="ml-2">Ya</span>
+                      </label>
+                      <label className="inline-flex items-center ml-6">
+                        <input type="radio" className="form-radio text-red-600" name={k.kode} value="Tidak" onChange={() => handleInputChange(k.kode, 'Tidak')} required/>
+                        <span className="ml-2">Tidak</span>
+                      </label>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+            </div>
 
             <Button type="submit" name="Lihat Hasil" color="blue" variant="w-full" onClick={handleSubmit} />
           </form>
 
           <div>
             {error && <AlertMessage type="error" message={error} color="red" />}
-            {success && <AlertMessage type="success" message={success} color="green" />}
           </div>
+
+          {/* Results Section */}
+          {success && (
+            <div className="mb-8">
+              <h1 className="font-medium text-lg">Hasil Pengecekan</h1>
+              <hr />
+              <p className="text-green-600"> <AlertMessage type="success" message={success} color="green" /> </p>
+              {resultData && resultData.length > 0 ? (
+                <div key={resultData[0].id}>
+                  <form onSubmit={handleKembali}>
+                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 mt-5 overflow-auto">
+                      <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                          <th scope="col" className='px-6 py-3'>Keterangan</th>
+                          <th scope="col" className='px-6 py-3'>Hasil</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="bg-white border-b hover:bg-gray-50">
+                          <td scope="col" className='px-6 py-3'>Name</td>
+                          <td scope="col" className='px-6 py-3' > {name}</td>
+                        </tr>
+                        <tr className="bg-white border-b hover:bg-gray-50">
+                          <td scope="col" className='px-6 py-3'>Gender</td>
+                          <td scope="col" className='px-6 py-3'>{gender}</td>
+                        </tr>
+                        <tr className="bg-white border-b hover:bg-gray-50">
+                          <td scope="col" className='px-6 py-3'>Bidang Pekerjaan</td>
+                          <td scope="col" className='px-6 py-3'>{bidang && bidang.find((b) => b.kode === resultData[0].kodeBidang).name}</td>
+                        </tr>
+                        <tr className="bg-white border-b hover:bg-gray-50">
+                          <td scope="col" className='px-6 py-3'>Nama Pekerjaan</td>
+                          <td scope="col" className='px-6 py-3'>{pekerjaan && pekerjaan.find((p) => p.kode === resultData[0].kodePekerjaan).name}</td>
+                        </tr>
+                        <tr className="bg-white border-b hover:bg-gray-50">
+                          <td scope="col" className='px-6 py-3'>Deskripsi Pekerjaan</td>
+                          <td scope="col" className='px-6 py-3'>{pekerjaan && pekerjaan.find((p) => p.kode === resultData[0].kodePekerjaan).description}</td>
+                        </tr>
+                        <tr className="bg-white border-b hover:bg-gray-50">
+                          <td scope="col" className='px-6 py-3'>Kriteria</td>
+                          <td scope="col" className='px-6 py-3'>
+                            {kriteria &&
+                              resultData[0].kodeKriteria.split(',').map((kode) => (
+                                <li key={kode}>
+                                  {kriteria.find((k) => k.kode === kode).kode} - {kriteria.find((k) => k.kode === kode).name}
+                                </li>
+                              ))}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <Button type="submit" name="Kembali" color="blue" variant="w-full" />
+                  </form>
+                </div>
+              ) : (
+                <AlertMessage message="Maaf, database kami terbatas. Tidak ada pekerjaan yang ditemukan" color="yellow" />
+              )}
+            </div>
+          )}
         </div>
       </div>
       <Footer />

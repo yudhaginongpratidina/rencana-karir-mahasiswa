@@ -60,7 +60,6 @@ model Rule {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
-  History       History[]
 
   bidang       Bidang    @relation(fields: [kodeBidang], references: [kode])
   pekerjaan    Pekerjaan @relation(fields: [kodePekerjaan], references: [kode])
@@ -69,15 +68,13 @@ model Rule {
 
 //  TABEL HISTORY ATAU RIWAYAT CEK KARIR
 model History {
-  id        Int      @id @default(autoincrement())
-  name      String
-  gender    String
-  
-  koderRule String
-  rule  Rule @relation(fields: [koderRule], references: [kode])
+  id              Int      @id @default(autoincrement())
+  name            String
+  gender          String
+  bidangPekerjaan String
+  pekerjaan       String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  createdAt       DateTime @default(now())
 }
 
 // TABEL PESAN

@@ -9,9 +9,9 @@ POST http://localhost:4000/api/rules
 Content-Type: application/json
 
 {
-    "kodeBidang" : "B01",
-    "kodePekerjaan" : "P02",
-    "kodeKriteria" : "K01,K02"
+    "kodeBidang" : "B04",
+    "kodePekerjaan" : "P03",
+    "kodeKriteria" : "K01,K02,K03,K04,K05"
 }
 
 

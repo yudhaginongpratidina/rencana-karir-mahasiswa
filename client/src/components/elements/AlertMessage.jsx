@@ -10,7 +10,7 @@ const AlertMessage = (props) => {
         </svg>
         <span className="sr-only">Info</span>
         <div>
-            <span className="font-medium">Message </span> {message}
+            <p><span className="font-medium">Message </span> {message}</p>
         </div>
     </div>
   )

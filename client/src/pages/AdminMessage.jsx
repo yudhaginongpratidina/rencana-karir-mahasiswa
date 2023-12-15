@@ -72,7 +72,7 @@ const AdminMessage = () => {
               </tr>
               {
                 data && data.map((message, index) => (
-                  <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50">
+                  <tr key={index} className="bg-white border-b hover:bg-gray-50">
                     <th scope="row" className="px-6 py-3 font-medium whitespace-nowrap">{index + 1}</th>
                     <td className="px-6 py-4 text-left"> {formatDistanceToNow(parseISO(message.createdAt), { addSuffix: true, locale: id })} </td>
                     <td className="px-6 py-3">{message.subject}</td>

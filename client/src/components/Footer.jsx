@@ -42,7 +42,7 @@ export default Footer;
 const Template = (props) => {
   const { children } = props;
   return (
-    <footer className="bg-red-500 py-3 shadow">
+    <footer className="bg-red-500 py-3 shadow mt-4">
       <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
         {children}
       </div>
