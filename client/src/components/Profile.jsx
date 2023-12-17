@@ -30,7 +30,7 @@ const Profile = () => {
 
     const getProfile = async () => {
         try {
-            const response = await axios.get(`http://localhost:4000/api/users/${credentials?.id}`)
+            const response = await axios.get(`http://195.35.8.190:4001/api/users/${credentials?.id}`)
             const { data } = response.data
             setImage(data.profile)
             setFullName(data.name)
@@ -49,7 +49,7 @@ const Profile = () => {
     const Update = async (e) => {
         try {
             e.preventDefault();
-            const response = await axios.patch(`http://localhost:4000/api/users/${credentials?.id}`, {
+            const response = await axios.patch(`http://195.35.8.190:4001/api/users/${credentials?.id}`, {
                 name        : fullName,
                 password    : password,
                 re_password : re_Password
@@ -68,7 +68,7 @@ const Profile = () => {
 
     const Delete = async () => {
         try {
-            const response = await axios.delete(`http://localhost:4000/api/users/${credentials?.id}`)
+            const response = await axios.delete(`http://195.35.8.190:4001/api/users/${credentials?.id}`)
             if (response) {
                 resetErrors();
                 setSuccess(response.data.msg)
