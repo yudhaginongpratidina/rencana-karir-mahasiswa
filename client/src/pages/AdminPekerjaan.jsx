@@ -29,7 +29,7 @@ const AdminPekerjaan = (props) => {
         useEffect(() => {
             const getPekerjaanByKode = async () => {
                 try {
-                    const response = await axios.get(`http://localhost:4000/api/pekerjaan/${kode}`)
+                    const response = await axios.get(`http://195.35.8.190:4001/api/pekerjaan/${kode}`)
                     const { data } = response.data
                     setName(data.name)
                     setDescription(data.description)
@@ -45,7 +45,7 @@ const AdminPekerjaan = (props) => {
         try {
             e.preventDefault();
 
-            const response = await axios.post("http://localhost:4000/api/pekerjaan", {
+            const response = await axios.post("http://195.35.8.190:4001/api/pekerjaan", {
                 name        : name,
                 description : description
             })
@@ -63,7 +63,7 @@ const AdminPekerjaan = (props) => {
         try {
             e.preventDefault();
 
-            const response = await axios.patch(`http://localhost:4000/api/pekerjaan/${kode}`, {
+            const response = await axios.patch(`http://195.35.8.190:4001/api/pekerjaan/${kode}`, {
                 name        : name,
                 description : description
             })

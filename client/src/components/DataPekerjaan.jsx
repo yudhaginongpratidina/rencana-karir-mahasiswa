@@ -32,7 +32,7 @@ const DataPekerjaan = () => {
     // ITEGRASI API
     const getDataPekerjaan = async () => {
         try {
-            const response = await axios.get('http://localhost:4000/api/pekerjaan')
+            const response = await axios.get('http://195.35.8.190:4001/api/pekerjaan')
             return response.data.data
         } 
         catch (error) {
@@ -44,7 +44,7 @@ const DataPekerjaan = () => {
 
     const deleteDataPekerjaan = async (kode) => {
         try {
-            const response = await axios.delete(`http://localhost:4000/api/pekerjaan/${kode}`)
+            const response = await axios.delete(`http://195.35.8.190:4001/api/pekerjaan/${kode}`)
             if (response) {
                 mutate('pekerjaan')
                 resetMessage();

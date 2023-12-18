@@ -34,7 +34,7 @@ const DataBidang = () => {
     // INTEGRASI API
     const getDataBidangPekerjaan = async () => {
         try {
-            const response = await axios.get('http://localhost:4000/api/bidang')
+            const response = await axios.get('http://195.35.8.190:4001/api/bidang')
             return response.data.data
         } 
         catch (error) {
@@ -46,7 +46,7 @@ const DataBidang = () => {
 
     const deleteDataBidang = async (kode) => {
         try {
-            const response = await axios.delete(`http://localhost:4000/api/bidang/${kode}`)
+            const response = await axios.delete(`http://195.35.8.190:4001/api/bidang/${kode}`)
             if (response) {
                 mutate('bidang')
                 resetMessage();

@@ -24,7 +24,7 @@ const Career = () => {
 
   const getBidang = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/bidang');
+      const response = await axios.get('http://195.35.8.190:4001/api/bidang');
       return response.data.data;
     } catch (error) {
       resetMessage();
@@ -34,7 +34,7 @@ const Career = () => {
 
   const getPekerjaan = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/pekerjaan');
+      const response = await axios.get('http://195.35.8.190:4001/api/pekerjaan');
       return response.data.data;
     } catch (error) {
       resetMessage();
@@ -44,7 +44,7 @@ const Career = () => {
 
   const getKriteria = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/kriteria');
+      const response = await axios.get('http://195.35.8.190:4001/api/kriteria');
       return response.data.data;
     } catch (error) {
       resetMessage();
@@ -83,7 +83,7 @@ const Career = () => {
         .map((k) => k.kode)
         .join(',');
 
-      const getRule = await axios.post('http://localhost:4000/api/rules/check', {
+      const getRule = await axios.post('http://195.35.8.190:4001/api/rules/check', {
         kodeBidang: bidangTerpilih,
         kodeKriteria: kriteriaTerpilih,
       });
@@ -123,7 +123,7 @@ const Career = () => {
           console.log(`${kriteriaItem.kode} - ${kriteriaItem.name}`);
         });
 
-      const response = axios.post('http://localhost:4000/api/history', {
+      const response = axios.post('http://195.35.8.190:4001/api/history', {
         name : name,
         gender : gender,
         bidangPekerjaan : bidang && bidang.find((b) => b.kode === resultItem.kodeBidang).name,
@@ -148,7 +148,6 @@ const Career = () => {
               <h1 className='font-medium text-lg'>Identitas Diri</h1> <hr />
               <Input type="text" name="Nama" placeholder="Masukkan Nama" value={name} onChange={(e) => setName(e.target.value)} />
               <div className="mb-4">
-                <h1 className='font-medium text-lg'>Jenis Kelamin</h1>
                 <hr />
                 <label className="block text-gray-700 text-sm font-bold mb-2 mt-3" htmlFor="gender">Pilih Jenis Kelamin</label>
                 <select id="gender" name="gender" className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={(e) => setGender(e.target.value)}>

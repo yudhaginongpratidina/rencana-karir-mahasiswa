@@ -7,6 +7,7 @@ import Admin from './template/Admin';
 import PanelContainer from './PanelContainer';
 import Button from './elements/Button';
 import AlertMessage from './elements/AlertMessage';
+import { set } from 'date-fns';
 
 const DataRule = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const DataRule = () => {
 
   const getRule = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/rules');
+      const response = await axios.get('http://195.35.8.190:4001/api/rules');
       return response.data.data;
     } catch (error) {
       resetMessage();
@@ -34,7 +35,7 @@ const DataRule = () => {
 
   const getBidang = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/bidang');
+      const response = await axios.get('http://195.35.8.190:4001/api/bidang');
       return response.data.data;
     } catch (error) {
       resetMessage();
@@ -44,13 +45,27 @@ const DataRule = () => {
 
   const getPekerjaan = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/pekerjaan');
+      const response = await axios.get('http://195.35.8.190:4001/api/pekerjaan');
       return response.data.data;
     } catch (error) {
       resetMessage();
       setError(error.response?.data?.msg || 'An error occurred while fetching pekerjaan.');
     }
   };
+
+  const deleteDataRule = async (kode) => {
+    try {
+      const response = await axios.delete(`http://195.35.8.190:4001/api/rules/${kode}`);
+      if (response) {
+        resetMessage();
+        mutate('rule');
+        setSuccess(response.data.msg);
+      }
+    } catch (error) {
+      resetMessage();
+      setError(error.response.data.msg)
+    }
+  }
 
   const { data: bidang } = useSWR('bidang', getBidang);
   const { data: pekerjaan } = useSWR('pekerjaan', getPekerjaan);
@@ -92,7 +107,7 @@ const DataRule = () => {
                   <td className="px-6 py-4">{ruleItem.updatedAt}</td>
                   <td className="px-6 py-4 text-center flex gap-3 justify-center">
                     <Button type="button" name="Edit" color="blue" onClick={() => navigate(`/admin/rule/${ruleItem.kode}/edit`)} />
-                    <Button type="button" name="Hapus" color="red" onClick={() => deleteDataRule(ruleItem.id)} />
+                    <Button type="button" name="Hapus" color="red" onClick={() => deleteDataRule(ruleItem.kode)} />
                   </td>
                 </tr>
               ))}

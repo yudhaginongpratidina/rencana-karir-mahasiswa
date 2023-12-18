@@ -27,7 +27,7 @@ const AdminKriteria = (props) => {
         try {
             e.preventDefault();
 
-            const response = await axios.post("http://localhost:4000/api/kriteria", {
+            const response = await axios.post("http://195.35.8.190:4001/api/kriteria", {
                 name        : name
             })
 
@@ -46,7 +46,7 @@ const AdminKriteria = (props) => {
         useEffect(() => {
             const getKriteriaByKode = async () => {
                 try {
-                    const response = await axios.get(`http://localhost:4000/api/kriteria/${kode}`)
+                    const response = await axios.get(`http://195.35.8.190:4001/api/kriteria/${kode}`)
                     const { data } = response.data
                     setName(data.name)
                 } catch (error) {
@@ -60,7 +60,7 @@ const AdminKriteria = (props) => {
     const updateKriteria = async (e) => {
         try {
             e.preventDefault();
-            const response = await axios.patch(`http://localhost:4000/api/kriteria/${kode}`, {
+            const response = await axios.patch(`http://195.35.8.190:4001/api/kriteria/${kode}`, {
                 name        : name
             })
 

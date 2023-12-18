@@ -27,7 +27,7 @@ const AdminBidang = (props) => {
         try {
             e.preventDefault();
             
-            const response = await axios.post("http://localhost:4000/api/bidang", {
+            const response = await axios.post("http://195.35.8.190:4001/api/bidang", {
                 name        : name
             })
 
@@ -48,7 +48,7 @@ const AdminBidang = (props) => {
         useEffect(() => {
             const getBidangByKode = async () => {
                 try {
-                    const response = await axios.get(`http://localhost:4000/api/bidang/${kode}`)
+                    const response = await axios.get(`http://195.35.8.190:4001/api/bidang/${kode}`)
                     const { data } = response.data
                     setName(data.name)
                 } catch (error) {
@@ -63,7 +63,7 @@ const AdminBidang = (props) => {
         try {
             e.preventDefault();
 
-            const response = await axios.patch(`http://localhost:4000/api/bidang/${kode}`, {
+            const response = await axios.patch(`http://195.35.8.190:4001/api/bidang/${kode}`, {
                 name        : name
             })
 

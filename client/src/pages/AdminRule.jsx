@@ -21,7 +21,7 @@ const AdminRule = (props) => {
 
   const getBidang = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/bidang');
+      const response = await axios.get('http://195.35.8.190:4001/api/bidang');
       return response.data.data;
     } catch (error) {
       console.error(error);
@@ -31,7 +31,7 @@ const AdminRule = (props) => {
 
   const getPekerjaan = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/pekerjaan');
+      const response = await axios.get('http://195.35.8.190:4001/api/pekerjaan');
       return response.data.data;
     } catch (error) {
       console.error(error);
@@ -41,7 +41,7 @@ const AdminRule = (props) => {
 
   const getKriteria = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/kriteria');
+      const response = await axios.get('http://195.35.8.190:4001/api/kriteria');
       return response.data.data;
     } catch (error) {
       console.error(error);
@@ -66,7 +66,7 @@ const AdminRule = (props) => {
       const kriteria = kriteriaKeys.join(',');
       console.log(`kriteria : ${kriteria}`);
 
-      const response = await axios.post('http://localhost:4000/api/rules', {
+      const response = await axios.post('http://195.35.8.190:4001/api/rules', {
         kodeBidang: kodeBidang,
         kodePekerjaan: kodePekerjaan,
         kodeKriteria: kriteria,
@@ -88,7 +88,7 @@ const AdminRule = (props) => {
   useEffect(() => {
     const getRuleByKode = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/api/rules/${kode}`);
+        const response = await axios.get(`http://195.35.8.190:4001/api/rules/${kode}`);
         const { data } = response.data;
         setKodeBidang(data.kodeBidang);
         setKodePekerjaan(data.kodePekerjaan);
@@ -112,8 +112,22 @@ const AdminRule = (props) => {
         console.log(`kriteriaKeys : ${kriteriaKeys}`);
         console.log(`Kode Bidang : ${kodeBidang}`);
         console.log(`Kode Pekerjaan : ${kodePekerjaan}`);
+
+        const response = await axios.patch(`http://195.35.8.190:4001/api/rules/${kode}`, {
+            kodeBidang: kodeBidang,
+            kodePekerjaan: kodePekerjaan,
+            kodeKriteria: kriteriaKeys.join(','),
+        })
+
+        if (response) {
+            resetMessage();
+            setSuccess(response.data.msg);
+            setTimeout(() => {
+                navigate('/admin/data/rule');
+            }, 2000);
+        }
     } catch (error) {
-        setError(error.response?.data.msg || 'Failed to update rule');
+        setError(error.response?.data.msg);
     }
   };
 

@@ -33,7 +33,7 @@ const DataKriteria = () => {
     // INTEGRASI API
     const getDataKriteria = async () => {
         try {
-            const response = await axios.get('http://localhost:4000/api/kriteria')
+            const response = await axios.get('http://195.35.8.190:4001/api/kriteria')
             return response.data.data
         } catch (error) {
             resetMessage();
@@ -43,7 +43,7 @@ const DataKriteria = () => {
 
     const deleteDataKriteria = async (kode) => {
         try {
-            const response = await axios.delete(`http://localhost:4000/api/kriteria/${kode}`)
+            const response = await axios.delete(`http://195.35.8.190:4001/api/kriteria/${kode}`)
 
             if(response) {
                 mutate('kriteria')
