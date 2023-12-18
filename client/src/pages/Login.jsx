@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
+
 // IMPORT TEMPLATE
 import Auth from '../components/template/Auth'
 
@@ -39,7 +40,7 @@ const Login = () => {
       e.preventDefault();
       resetMessages();
 
-      const response = await axios.post("http://localhost:4000/api/users/login", {
+      const response = await axios.post("http://195.35.8.190:4001/api/users/login", {
         email       : email,
         password    : password
       });
@@ -48,6 +49,7 @@ const Login = () => {
 
       const { data } = response.data;
 
+      // console.log(data);
       const userId = data.id;
       const userProfile = data.profile;
       

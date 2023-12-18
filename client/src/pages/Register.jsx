@@ -33,7 +33,7 @@ const Register = () => {
 
       resetMessages();
 
-      const response = await axios.post("http://localhost:4000/api/users", {
+      const response = await axios.post("http://195.35.8.190:4001/api/users", {
         name        : name,
         email       : email,
         password    : password,
