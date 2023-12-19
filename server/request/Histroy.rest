@@ -1,5 +1,5 @@
 ### MENDAPATKAN DATA HISTORY
-GET http://localhost:4000/api/history
+GET http://195.35.8.190:4001/api/history
 
 
 ### MEMBUAT DATA HISTORY BARU

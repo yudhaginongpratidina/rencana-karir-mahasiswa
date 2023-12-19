@@ -7,7 +7,9 @@ import Admin from './template/Admin';
 import PanelContainer from './PanelContainer';
 import Button from './elements/Button';
 import AlertMessage from './elements/AlertMessage';
-import { set } from 'date-fns';
+
+import { formatDistanceToNow, parseISO } from 'date-fns';
+import { id } from 'date-fns/locale';
 
 const DataRule = () => {
   const navigate = useNavigate();
@@ -104,7 +106,7 @@ const DataRule = () => {
                   <td className="px-6 py-4">{bidang && bidang.find((b) => b.kode === ruleItem.kodeBidang)?.name}</td>
                   <td className="px-6 py-4">{pekerjaan && pekerjaan.find((p) => p.kode === ruleItem.kodePekerjaan)?.name}</td>
                   <td className="px-6 py-4">{ruleItem.kodeKriteria}</td>
-                  <td className="px-6 py-4">{ruleItem.updatedAt}</td>
+                  <td className="px-6 py-4">{formatDistanceToNow(parseISO(ruleItem.updatedAt), { addSuffix: true, locale: id })}</td>
                   <td className="px-6 py-4 text-center flex gap-3 justify-center">
                     <Button type="button" name="Edit" color="blue" onClick={() => navigate(`/admin/rule/${ruleItem.kode}/edit`)} />
                     <Button type="button" name="Hapus" color="red" onClick={() => deleteDataRule(ruleItem.kode)} />

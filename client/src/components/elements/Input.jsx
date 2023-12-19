@@ -4,7 +4,7 @@ const Input = (props) => {
     const { type, name, placeholder, value, onChange } = props;
     return (
       <div className='mt-2'>
-        <label htmlFor={name} className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{" "}{name}{" "}</label>
+        <label htmlFor={name} className="block mb-2 text-sm font-medium text-gray-900 dark:text-white capitalize">{" "}{name}{" "}</label>
         <input
           type={type}
           name={name}

@@ -31,7 +31,7 @@ const AdminNavbar = () => {
         },
         {
             name: "Riwayat",
-            url: "/admin/riwayat",
+            url: "/admin/data/riwayat",
         }
     ]
 

@@ -7,7 +7,7 @@ const PanelItem = (props) => {
       <div className={`flex justify-between items-center p-3 border rounded-lg shadow ${Variant}`}>
         <div>
           <h3 className={`text-gray-500 ${Variant}`}> {Name} </h3>
-          <p className={`text-3xl font-bold ${Variant}`}> {Count} </p>
+          <p className={`text-3xl font-medium ${Variant}`}> {Count} </p>
         </div>
         <div>
           <Link to={Url} >

@@ -22,7 +22,7 @@ import AdminMessage from "./pages/AdminMessage";
 
 import AdminData from "./pages/AdminData";
 import ViewMessage from "./components/ViewMessage";
-import AdminRiwayat from "./pages/AdminRiwayat";
+// import AdminRiwayat from "./pages/AdminRiwayat";
 
 // HALAMAN FORM INPUT DATA
 import AdminBidang from "./pages/AdminBidang";
@@ -70,8 +70,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/admin/data/bidang" element={<DataBidang />} />
         <Route path="/admin/data/pekerjaan" element={<DataPekerjaan />} />
         <Route path="/admin/data/kriteria" element={<DataKriteria />} />
-        <Route path="/admin/data/riwayat" element={<DataHistory />} />
         <Route path="/admin/data/rule" element={<DataRule />} />
+        <Route path="/admin/data/riwayat" element={<DataHistory />} />
 
         {/* ROUTE BIDANG */}
         <Route path="/admin/bidang/tambah" element={<AdminBidang panelName="Tambah Bidang" panelLink="/admin/data/bidang" nameButton="Kembali" />} />
@@ -91,7 +91,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
 
         {/* ROUTE HISTORY ATAU RIWAYAT */}
-        <Route path="/admin/riwayat" element={<AdminRiwayat />} />
+        {/* <Route path="/admin/riwayat" element={<AdminRiwayat />} /> */}
 
       </Routes>
     </BrowserRouter>

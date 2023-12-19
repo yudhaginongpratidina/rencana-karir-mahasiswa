@@ -17,6 +17,7 @@ import AlertMessage from '../components/elements/AlertMessage'
 
 const AdminDashboard = () => {
 
+  const time = id;
   const { mutate } = useSWRConfig();
   const [success, setSuccess] = useState('')
   const [error, setError] = useState('')
@@ -36,9 +37,21 @@ const AdminDashboard = () => {
     }
   }
 
+
+  const getHistory = async () => {
+    try {
+      const response = await axios.get('http://195.35.8.190:4001/api/history')
+      return response.data.data
+    } 
+    catch (error) {
+      console.log(error)
+    }
+  }
+
   
   // PARSING DATA
   const { data } = useSWR('messages', getMessage)
+  const { data: history } = useSWR('history', getHistory)
   
   const deleteMessage = async (id) => {
     try {
@@ -80,13 +93,19 @@ const AdminDashboard = () => {
         </div>
 
         <ButtomPanel>
-          <tr className="odd:bg-white even:bg-gray-50 border-b ">
-            <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">1</td>
-            <td className="px-6 py-4">User 1</td>
-            <td className="px-6 py-4">Programmer</td>
-            <td className="px-6 py-4">Front End Developer</td>
-            <td className="px-6 py-4">8 Desember 2023</td>
-          </tr>
+          {history?.map((history, index) => (
+            <tr key={index} className="bg-white border-b">
+              <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{index + 1}</th>
+              <td className="px-6 py-4">{history.name}</td>
+              <td className="px-6 py-4">{history.bidangPekerjaan}</td>
+              <td className="px-6 py-4">{history.pekerjaan}</td>
+              {/* <td className="px-6 py-4">{history.createdAt}</td> */}
+              <td className="px-6 py-4">{formatDistanceToNow(parseISO(history.createdAt), { addSuffix: true, locale: time })}</td>
+              <td>
+                  <Button name="Hapus" color="red" variant="w-full" />
+              </td>
+            </tr>
+          ))}
         </ButtomPanel>
       </div>
     </Admin>
@@ -134,7 +153,7 @@ const ButtomPanel = (props) => {
 
   const { children } = props;
   return (
-    <PanelContainer panelName="Riwayat" panelLink="/admin/riwayat">
+    <PanelContainer panelName="Riwayat" panelLink="/admin/data/riwayat">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 mt-5">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
           <tr>
@@ -143,6 +162,7 @@ const ButtomPanel = (props) => {
             <th scope="col" className="px-6 py-3">Bidang Pekerjaan</th>
             <th scope="col" className="px-6 py-3">Pekerjaan</th>
             <th scope="col" className="px-6 py-3">Date</th>
+            <th scope="col" className="px-6 py-3">Aksi</th>
           </tr>
         </thead>
         <tbody>

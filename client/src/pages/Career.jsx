@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import useSWR from 'swr';
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -12,6 +13,8 @@ import Button from '../components/elements/Button';
 import Input from '../components/elements/Input';
 
 const Career = () => {
+
+  const navigate = useNavigate();
 
   const [name, setName] = useState('');
   const [gender, setGender] = useState('');
@@ -110,17 +113,17 @@ const Career = () => {
     if (resultData && resultData.length > 0) {
       const resultItem = resultData[0];
 
-      console.log(`Name: ${name}`);
-      console.log(`Gender: ${gender}`);
-      console.log(`Bidang Pekerjaan: ${bidang && bidang.find((b) => b.kode === resultItem.kodeBidang).name}`);
-      console.log(`Nama Pekerjaan: ${pekerjaan && pekerjaan.find((p) => p.kode === resultItem.kodePekerjaan).name}`);
-      console.log(`Deskripsi Pekerjaan: ${pekerjaan && pekerjaan.find((p) => p.kode === resultItem.kodePekerjaan).description}`);
+      // console.log(`Name: ${name}`);
+      // console.log(`Gender: ${gender}`);
+      // console.log(`Bidang Pekerjaan: ${bidang && bidang.find((b) => b.kode === resultItem.kodeBidang).name}`);
+      // console.log(`Nama Pekerjaan: ${pekerjaan && pekerjaan.find((p) => p.kode === resultItem.kodePekerjaan).name}`);
+      // console.log(`Deskripsi Pekerjaan: ${pekerjaan && pekerjaan.find((p) => p.kode === resultItem.kodePekerjaan).description}`);
       
-      console.log('Kriteria:');
+      // console.log('Kriteria:');
       kriteria &&
         resultItem.kodeKriteria.split(',').forEach((kode) => {
           const kriteriaItem = kriteria.find((k) => k.kode === kode);
-          console.log(`${kriteriaItem.kode} - ${kriteriaItem.name}`);
+          // console.log(`${kriteriaItem.kode} - ${kriteriaItem.name}`);
         });
 
       const response = axios.post('http://195.35.8.190:4001/api/history', {
@@ -130,6 +133,11 @@ const Career = () => {
         pekerjaan : pekerjaan && pekerjaan.find((p) => p.kode === resultItem.kodePekerjaan).name,
       })
 
+      if (response) {
+        resetMessage();
+        setSuccess("Data tersimpan");
+        setTimeout(() => { navigate('/home'); }, 2000);
+      }
     } else {
       console.log('No result data available');
     }
@@ -142,6 +150,20 @@ const Career = () => {
         <div className="w-full max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow">
           <h2 className="text-2xl text-center font-bold text-gray-900">FORM CEK KARIR</h2>
           <hr />
+
+          <div className="flex p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
+            <svg className="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+            </svg>
+            <span className="sr-only">Info</span>
+            <div>
+              <span className="font-medium">Catatan</span>
+                <ul className="mt-1.5 list-disc list-inside">
+                  <li>Isi identitas diri anda dengan benar</li>
+                  <li>Jawab semua pertanyaan dengan benar dan sesuai dengan kondisi anda sekarang</li>
+              </ul>
+            </div>
+          </div>
 
           <form className="w-full max-w-2xl my-4 overflow-hidden">
             <div className='font-medium text-lg mb-4'> 
@@ -168,24 +190,27 @@ const Career = () => {
             </div>
 
             <div className='mb-4'>
-              <h1 className='font-medium text-lg'>Kriteria</h1>< hr />
+              <h1 className='font-medium text-lg'>Kriteria</h1><hr />
               {kriteria &&
-                kriteria.map((k) => (
+                kriteria.map((k, index) => (
                   <div key={k.kode} className="mb-6 mt-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor={k.kode}>{k.name} </label>
-                    <div className='w-full grid grid-cols-2 my-2'>
-                      <label className="inline-flex items-center">
-                        <input type="radio" className="form-radio text-indigo-600" name={k.kode} value="Ya" onChange={() => handleInputChange(k.kode, 'Ya')} required />
-                        <span className="ml-2">Ya</span>
-                      </label>
-                      <label className="inline-flex items-center ml-6">
-                        <input type="radio" className="form-radio text-red-600" name={k.kode} value="Tidak" onChange={() => handleInputChange(k.kode, 'Tidak')} required/>
-                        <span className="ml-2">Tidak</span>
-                      </label>
+                    <div>
+                      <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor={k.kode}>{`${index + 1}. ${k.name}`}</label>
+                      <div className='w-full grid grid-cols-2 my-2'>
+                        <label className="inline-flex items-center">
+                          <input type="radio" className="form-radio text-indigo-600" name={k.kode} value="Ya" onChange={() => handleInputChange(k.kode, 'Ya')} required />
+                          <span className="ml-2">Ya</span>
+                        </label>
+                        <label className="inline-flex items-center ml-6">
+                          <input type="radio" className="form-radio text-red-600" name={k.kode} value="Tidak" onChange={() => handleInputChange(k.kode, 'Tidak')} required/>
+                          <span className="ml-2">Tidak</span>
+                        </label>
+                      </div>
                     </div>
                   </div>
                 ))}
             </div>
+
 
             <Button type="submit" name="Lihat Hasil" color="blue" variant="w-full" onClick={handleSubmit} />
           </form>

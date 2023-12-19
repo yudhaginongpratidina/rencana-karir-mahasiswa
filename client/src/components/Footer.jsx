@@ -5,19 +5,15 @@ const Footer = () => {
   const url = [
     {
       name: "Home",
-      url: "#",
-    },
-    {
-      name: "Article",
-      url: "#",
+      url: "/home",
     },
     {
       name: "Career",
-      url: "#",
+      url: "/career",
     },
     {
       name: "Contact",
-      url: "#",
+      url: "/contact",
     },
   ];
 
