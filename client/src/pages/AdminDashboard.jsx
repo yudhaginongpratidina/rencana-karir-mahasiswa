@@ -29,7 +29,7 @@ const AdminDashboard = () => {
 
   const getMessage = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/messages')
+      const response = await axios.get('http://195.35.8.190:4001/api/messages')
       return response.data.data
     } 
     catch (error) {
@@ -55,7 +55,7 @@ const AdminDashboard = () => {
   
   const deleteMessage = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:4000/api/messages/${id}`)
+      const response = await axios.delete(`http://195.35.8.190:4001/api/messages/${id}`)
       if (response) {
         resetMessage();
         setSuccess(response.data.msg)

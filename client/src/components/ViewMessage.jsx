@@ -24,7 +24,7 @@ const ViewMessage = () => {
         useEffect(() => {
             const getMessageById = async () => {
                 try {
-                    const response = await axios.get(`http://localhost:4000/api/messages/${userId}`)
+                    const response = await axios.get(`http://195.35.8.190:4001/api/messages/${userId}`)
                     const { data } = response.data
                     setEmail(data.email)
                     setSubject(data.subject)
