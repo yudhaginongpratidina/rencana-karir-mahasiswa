@@ -1,0 +1,17 @@
+### MENDAPATKAN DATA HISTORY
+GET http://195.35.8.190:4001/api/history
+
+
+### MEMBUAT DATA HISTORY BARU
+POST http://localhost:4000/api/history
+Content-Type: application/json 
+
+{
+    "name" : "user 1",
+    "gender" : "perempuan",
+    "pekerjaan" : "Marketing"
+}
+
+
+### MENGHAPUS DATA HISTORY BERDASARKAN ID
+DELETE http://localhost:4000/api/history/1

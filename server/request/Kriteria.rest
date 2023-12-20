@@ -1,0 +1,26 @@
+### MENDAPATKAN SEMUA DATA KRITERIA
+GET http://localhost:4000/api/kriteria
+
+
+### MENDAPATKAN DATA KRITERIA BERDASARKAN KODE
+GET http://localhost:4000/api/kriteria/K01
+
+### MENAMBAH DATA KRITERIA BARU
+POST http://localhost:4000/api/kriteria
+Content-Type: application/json
+
+{
+    "name" : "Suka kerja tim?"
+}
+
+
+### UPDATE DATA KRITERIA 
+PATCH http://localhost:4000/api/kriteria/K01
+Content-Type: application/json
+
+{
+    "name" : "Apakah anda suka bekerja dengan tim ?"
+}
+
+### HAPUS DATA KRITERIA BERDASARKAN KODE/K01
+DELETE http://localhost:4000/api/kriteria/K01

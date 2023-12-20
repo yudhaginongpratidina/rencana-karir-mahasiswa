@@ -1,0 +1,25 @@
+### MENDAPATKAN DATA SEMUA BIDANG
+GET http://localhost:4000/api/bidang
+
+### MENDAPTAKAN DATA BIDANG BERDASARKAN KODE
+GET http://localhost:4000/api/bidang/B01
+
+### MENAMBAHAN DATA BIDANG BARU
+POST http://localhost:4000/api/bidang
+Content-Type: application/json 
+
+{
+    "name" : "Industri"
+}
+
+
+### UPDATE DATA BIDANG BERDASARKAN KODE
+PATCH  http://localhost:4000/api/bidang/B01
+Content-Type: application/json
+
+{
+    "name" : "Industri"
+}
+
+### HAPUS DATA BIDANG BERDASARKAN KODE/B01
+DELETE  http://localhost:4000/api/bidang/B01

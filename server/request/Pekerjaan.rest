@@ -1,0 +1,29 @@
+### MENDAPATKAN SEMUA DATA PEKERJAAN
+GET http://localhost:4000/api/pekerjaan
+
+
+### MENDAPATKAN DATA PEKERJAAN BERDASARKAN KODE
+GET http://localhost:4000/api/pekerjaan/P01
+
+### MENAMBAH DATA PEKERJAAN BARU
+POST http://localhost:4000/api/pekerjaan
+Content-Type: application/json
+
+{
+    "name" : "Front End Web",
+    "description" : "Pekerjaan IT"
+}
+
+
+### UPDATE DATA PEKERJAAN 
+PATCH http://localhost:4000/api/pekerjaan/p01
+Content-Type: application/json
+
+{
+    "name" : "Web Dev",
+    "description" : "Web Dev Merupakan pekerjaan yang sangat menyenangkan"
+}
+
+
+### DELETE DATA PEKERJAAN BERDASARKAN ID
+DELETE http://localhost:4000/api/pekerjaan/p01

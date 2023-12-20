@@ -1,0 +1,40 @@
+### MENDAPATKAN SEMUA DATA RULE
+GET http://localhost:4000/api/rules
+
+### MENDAPATKAN SEMUA DATA RULE BERDASARKAN KODE
+GET http://localhost:4000/api/rules/r01
+
+### MEMBUAT RULE BARU
+POST http://localhost:4000/api/rules
+Content-Type: application/json
+
+{
+    "kodeBidang" : "B04",
+    "kodePekerjaan" : "P03",
+    "kodeKriteria" : "K01,K02,K03,K04,K05"
+}
+
+
+### CEK DATA
+POST http://localhost:4000/api/rules/check
+Content-Type: application/json
+
+{
+    "kodeBidang" : "B01",
+    "kodeKriteria" : "K01,K02"
+}
+
+
+### UPDATE DATA RULE 
+PATCH http://localhost:4000/api/rules/r01
+Content-Type: application/json
+
+{
+    "kodeBidang" : "B01",
+    "kodePekerjaan" : "P02",
+    "kodeKriteria" : "K01,K03,K04,K10,K14"
+}
+
+
+### DELETE DATA RULE
+DELETE http://localhost:4000/api/rules/r03

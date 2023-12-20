@@ -1,0 +1,19 @@
+### MENDAPATKAN SEMUA DATA MESSAGE
+GET http://localhost:4000/api/messages
+
+### MEMBUAT ATAU MENGIRIM MESSAGE
+POST http://localhost:4000/api/messages
+Content-Type: application/json
+
+{
+    "email" : "testing@gmail.com",
+    "subject" : "naisunaisunaisunaisunaisunaisunaisunaisunaisunaisusunaisunaisunaisunaisunaisunaisunaisunaisunaisunaisu naisunaisunaisunaisunaisunaisu",
+    "message" : "komentar"
+}
+
+### GET MESSAGE BY ID
+GET http://localhost:4000/api/messages/1
+
+
+### MENGHAPUS DATA MESSAGE BERDASARKAN ID
+DELETE http://localhost:4000/api/messages/1
